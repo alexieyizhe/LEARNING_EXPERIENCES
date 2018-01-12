@@ -1,0 +1,87 @@
+* {
+	font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+}
+
+body {
+	background-color: #000639;
+}
+
+h1 {
+	color: #FFFFFF;
+	font-size: 24px;
+	margin-left: 1%;
+}
+
+h2 {
+	color: #FFFFFF;
+	font-size:16px;
+	padding-top: 20px;
+	margin-left: 1%;
+	font-weight: normal;
+}
+
+span {
+	color: #C23628;
+	font-size: 14px;
+	margin-left: 1%;
+}
+
+input, select {
+	-webkit-box-sizing: border-box;
+      	-moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+  	-moz-appearance: none;
+	border-radius: 10px;
+	border: none;
+
+	height: 2em;
+	margin: 1%;
+	font-size: 16px;
+}
+
+#main {
+	margin: 5% 20% 0% 20%;
+}
+
+#line1 {
+	background-color: #7AB55C;
+	width: 2em;
+	height: 2px;
+	margin-left: 1%;
+}
+
+#submit_but {
+	width: 93%;
+	height: 4em;
+	background-color: #5c6ac4;
+	color: #FFFFFF;
+
+}
+
+.subscribe_field {
+	width:60%;
+	padding: 30px 0px 30px 15px;
+	color: #7B7B7B;
+}
+
+.subscribe_field:nth-of-type(2){
+	width: 30%;
+}
+
+#footer {
+	text-align: center;
+	margin-top: 50%;
+	padding-bottom: 5%;
+}
+
+#footer > a {
+	color: #7B7B7B;
+}
+
+[list] {
+	background-image: linear-gradient(to right, #B2B2B2 1px, transparent 1px, transparent);
+	background-position: right -50px center;
+	background-size: 100px 30px;
+  	background-repeat: no-repeat;
+}
