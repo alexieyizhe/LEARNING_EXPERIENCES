@@ -1,0 +1,8 @@
+<h2>Events</h2>
+<ul class="events">
+  <li *ngFor="let event of all_events">
+      <a routerLink="/detail/{{event.id}}">
+        <span class="badge">{{event.id}}</span> {{event.name}}
+      </a>
+  </li>
+</ul>
