@@ -14,3 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+ion-item:hover {
+    cursor: pointer;
+    background-color: #e2e2e2;
+}
+
+.modal-wrapper {
+    width: 40%;
+    height: 60%;
+    top: 20%;
+    bottom: 20%;
+    left: 30%;
+    right: 30%;
+}

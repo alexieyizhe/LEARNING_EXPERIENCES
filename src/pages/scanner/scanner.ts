@@ -8,11 +8,6 @@ import { NavController } from 'ionic-angular';
 export class ScannerPage {
 
   query_user_id: number;
-  new_user_id: number;
-  new_user_name;
-  new_user_role;
-  new_user_had_dinner = false;
-  new_user_tracker = [];
 
   constructor(public navCtrl: NavController) {
 
