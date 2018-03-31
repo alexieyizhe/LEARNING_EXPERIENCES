@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Scanner
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-input type="number" placeholder="Hacker ID" [(ngModel)]="query_user_id" (ngModelChange)="query_user_id = convertToNumber($event)"></ion-input>
+  <button ion-button (click)="searchUser()">Search</button>
+</ion-content>
