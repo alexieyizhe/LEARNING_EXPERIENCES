@@ -5,6 +5,7 @@
   </ion-header>
   
   <ion-content>
+    <!--EDITABLE VIEW-->
     <span id="editable_view">
       <ion-item> 
         <ion-input placeholder="User Name" [(ngModel)]="user.name"></ion-input> 
@@ -19,14 +20,37 @@
             <ion-option value="hacker">Hacker</ion-option>
           </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label>Had Dinner?</ion-label>
-        <ion-toggle [(ngModel)]="user.had_dinner"></ion-toggle>
-      </ion-item>
+
+      <ion-label>Workshops</ion-label>
+      <ion-list>
+        <ion-item *ngFor="let ws of user.attended;let i=index">
+          <ion-label>{{workshops[i].name}}</ion-label>
+          <ion-toggle [(ngModel)]="user.attended[i]"></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+      <ion-label>Activities</ion-label>
+      <ion-list>
+        <ion-item *ngFor="let ac of user.participated;let i=index">
+          <ion-label>{{activities[i].name}}</ion-label>
+          <ion-toggle [(ngModel)]="user.participated[i]"></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+      <ion-label>Food</ion-label>
+      <ion-list>
+        <ion-item *ngFor="let fd of user.eaten;let i=index">
+          <ion-label>{{meals[i].name}}</ion-label>
+          <ion-toggle [(ngModel)]="user.eaten[i]"></ion-toggle>
+        </ion-item>
+      </ion-list>
+      
     </span>
+
+
+    <!--NON EDITABLE VIEW-->
     <span id="default_view">
         Role: {{user.role}} <br>
-        Had Dinner?: {{user.had_dinner}} <br>
     </span>
     <button ion-button (click)="close()">x close</button>
   </ion-content>

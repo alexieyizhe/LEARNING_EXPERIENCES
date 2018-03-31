@@ -9,12 +9,11 @@ import { DataProvider } from '../../providers/data/data';
 export class AdminPage {
 
   search_by: string = "ID";
-  search_query: any = "";
+  search_query: string = "";
   new_user_id: number;
   new_user_name: string;
   new_user_role: string;
-  new_user_had_dinner = false;
-  new_user_tracker = [];
+
 
   constructor(public navCtrl: NavController, public view: ViewController, public dataService: DataProvider) {
     
@@ -29,21 +28,14 @@ export class AdminPage {
     id: %d
     name: %s
     role: %s
-    had dinner: %s
-    `, this.new_user_id, this.new_user_name, this.new_user_role, this.new_user_had_dinner.toString());
+    `, this.new_user_id, this.new_user_name, this.new_user_role);
 
     let new_user = {
       id: this.new_user_id,
       name: this.new_user_name,
       role: this.new_user_role,
-      had_dinner: this.new_user_had_dinner,
     }
     this.view.dismiss(new_user, null);
-  }
-
-  searchUser(){
-    console.log("searching for user %s", this.search_query);
-    this.view.dismiss(null, this.dataService.searchUsers(this.search_by, this.search_query));
   }
 
   close(){

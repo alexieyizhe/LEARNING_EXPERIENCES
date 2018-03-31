@@ -13,7 +13,7 @@ import { DetailProvider } from '../../providers/detail/detail';
 export class DirectoryPage {
 
   
-  public users: any;
+  users;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public dataService: DataProvider, public detailService: DetailProvider) {
   }
@@ -31,7 +31,7 @@ export class DirectoryPage {
     adminModal.onDidDismiss((new_user, results) => {
 
       if(new_user){
-        this.saveUser(new_user);
+        this.dataService.addUser(new_user.id, new_user.name, new_user.role);
       }
       if(results){
         this.users = results;
@@ -39,10 +39,6 @@ export class DirectoryPage {
     })
 
     adminModal.present();
-  }
-
-  saveUser(new_user){
-    this.users.push(new_user);
   }
 
   viewUser(user){
