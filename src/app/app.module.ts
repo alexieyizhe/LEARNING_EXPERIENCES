@@ -13,10 +13,12 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { AdminPage } from '../pages/admin/admin';
 import { UserPage } from '../pages/user/user';
 import { ContactPage } from '../pages/contact/contact';
+import { ErrorPage } from '../pages/error/error';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataProvider } from '../providers/data/data';
+import { DetailProvider } from '../providers/detail/detail';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { DataProvider } from '../providers/data/data';
     TabsPage,
     AdminPage,
     UserPage,
-    ContactPage
+    ContactPage,
+    ErrorPage
   ],
   imports: [
     BrowserModule,
@@ -44,14 +47,16 @@ import { DataProvider } from '../providers/data/data';
     TabsPage,
     AdminPage,
     UserPage,
-    ContactPage
+    ContactPage,
+    ErrorPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HttpClientModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataProvider
+    DataProvider,
+    DetailProvider
   ]
 })
 export class AppModule {}

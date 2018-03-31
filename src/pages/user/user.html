@@ -1,10 +1,33 @@
 <ion-header>
     <ion-navbar>
-      <ion-title [innerHtml]="user.name"></ion-title>
+      <ion-title [innerHtml]="user.name"></ion-title> #{{user.id}}
     </ion-navbar>
   </ion-header>
   
   <ion-content>
+    <span id="editable_view">
+      <ion-item> 
+        <ion-input placeholder="User Name" [(ngModel)]="user.name"></ion-input> 
+      </ion-item> 
+      <ion-item>
+          <ion-label>Role</ion-label>
+          <ion-select [(ngModel)]="user.role">
+            <ion-option value="organizer">Organizer</ion-option>
+            <ion-option value="volunteer">Volunteer</ion-option>
+            <ion-option value="mentor">Mentor</ion-option>
+            <ion-option value="sponsor">Sponsor</ion-option>
+            <ion-option value="hacker">Hacker</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Had Dinner?</ion-label>
+        <ion-toggle [(ngModel)]="user.had_dinner"></ion-toggle>
+      </ion-item>
+    </span>
+    <span id="default_view">
+        Role: {{user.role}} <br>
+        Had Dinner?: {{user.had_dinner}} <br>
+    </span>
     <button ion-button (click)="close()">x close</button>
   </ion-content>
       

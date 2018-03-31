@@ -4,6 +4,7 @@ import { AdminPage } from '../admin/admin';
 import { UserPage } from '../user/user';
 import { HttpModule } from '@angular/http';
 import { DataProvider } from '../../providers/data/data';
+import { DetailProvider } from '../../providers/detail/detail';
 
 @Component({
   selector: 'page-directory',
@@ -14,7 +15,7 @@ export class DirectoryPage {
   
   public users: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public dataService: DataProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public dataService: DataProvider, public detailService: DetailProvider) {
   }
 
   ionViewDidLoad() {
@@ -45,11 +46,7 @@ export class DirectoryPage {
   }
 
   viewUser(user){
-    console.log("viewing user %s...", user.name);
-
-    let userModal = this.modalCtrl.create(UserPage, {user: user}, {cssClass: "user-modal"});
-
-    userModal.present();
+    this.detailService.viewUser(user, false);
   }
 
 }
