@@ -19,6 +19,7 @@ export class ScannerPage {
   public convertToNumber(event):number { return +event; }
   
   viewUser(){
+    
     console.log("showing user with id %d", this.query_user_id);
 
     let loading = this.loadingCtrl.create(

@@ -49,13 +49,15 @@ export class DataProvider {
 
   users = [];
   cur_user = null;
+  cu_is_quick = false; // allows current user (if volunteer) to quickly check ppl in
+  cu_quick_checkin = null;
 
   constructor(public http: HttpClient) {
 
     this.users = [
-      { id: 1, name: "Alex", role: "organizer", email: "alex@equithon.org", pass: "alextest", attended: [], participated: [], eaten: [] },
-      { id: 2, name: "Meagan", role: "organizer", email: "meagan@equithon.org", pass: "meagantest", attended: [], participated: [], eaten: [] },
-      { id: 3, name: "Falah", role: "organizer", email: "falah@equithon.org", pass: "falahtest",  attended: [], participated: [], eaten: [] }
+      { id: 1, name: "Alex", email: "alex@equithon.org", pass: "alextest", role: "organizer", action: "helping organize", acting_on: "brunch", attended: [], participated: [], eaten: [] },
+      { id: 2, name: "Meagan", email: "meagan@equithon.org", pass: "meagantest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] },
+      { id: 3, name: "Falah", email: "falah@equithon.org", pass: "falahtest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] }
     ];
 
     for(var i = 0; i < this.users.length; i++){
@@ -98,6 +100,8 @@ export class DataProvider {
       email: email,
       pass: pass,
       role: role,
+      action: "taking a break",
+      acting_on: "from work",
       attended: [],
       participated: [],
       eaten: []
@@ -141,6 +145,56 @@ export class DataProvider {
 
   getCurUser(){
     return this.cur_user;
+  }
+
+  optQuickCheckin(opt_in){ // cur_user needs to be non-null
+    if(opt_in){
+
+      for(let w = 0; w < this.workshops.length; w++){
+        if(this.workshops[w].name.toLowerCase() === this.cur_user.acting_on){
+          this.cu_is_quick = true;
+          this.cu_quick_checkin = {
+            type: 'workshop',
+            name: this.workshops[w].name,
+            type_indx: w
+          };
+          console.log("setting workshop as quick checkin");
+          return this.cu_quick_checkin;
+        }
+      }
+
+      for(let a = 0; a < this.activities.length; a++){
+        if(this.activities[a].name.toLowerCase() === this.cur_user.acting_on){
+          this.cu_is_quick = true;
+          this.cu_quick_checkin = {
+            type: 'activity',
+            name: this.activities[a].name,
+            type_indx: a
+          };
+          console.log("setting activities as quick checkin");
+          return this.cu_quick_checkin;
+        }
+      }
+
+      for(let m = 0; m < this.meals.length; m++){
+        if(this.meals[m].name.toLowerCase() === this.cur_user.acting_on){
+          this.cu_is_quick = true;
+          this.cu_quick_checkin = {
+            type: 'meal',
+            name: this.meals[m].name,
+            type_indx: m
+          };
+          console.log("setting meals as quick checkin");
+          return this.cu_quick_checkin;
+        }
+      }
+
+    }
+    console.log("did not find one matching current");
+    this.cu_is_quick = false;
+    this.cu_quick_checkin = null;
+
+    return null;
   }
   
 }

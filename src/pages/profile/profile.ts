@@ -1,6 +1,6 @@
 import { DataProvider } from './../../providers/data/data';
 import { Component } from '@angular/core';
-import { ModalController, NavController, LoadingController } from 'ionic-angular';
+import { ModalController, NavController, LoadingController, ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-profile',
@@ -13,7 +13,7 @@ export class ProfilePage {
   login_pass: string;
 
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public dataService: DataProvider) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public dataService: DataProvider) {
   }
 
   ionViewDidLoad() {
@@ -37,17 +37,28 @@ export class ProfilePage {
     loading.onDidDismiss(() => {
       console.log("loading dismissed!")
       let login_success = this.dataService.logIn(this.login_email, this.login_pass);
+      let login_message = "Invalid email or password!";
       if(login_success){
+        login_message = "Successfully logged in!";
         this.cur_user = this.dataService.getCurUser();
         document.getElementById("login_error").style.display = "none";
-      } else {
-        document.getElementById("login_error").style.display = "inline";
       }
+
+      let login_toast = this.toastCtrl.create({
+        message: login_message,
+        duration: 5000,
+        position: "top",
+        cssClass: "login_toast",
+        dismissOnPageChange: true,
+
+      })
+
+      login_toast.present();
+
     });
 
     loading.present();
 
-    
   }
 
 }

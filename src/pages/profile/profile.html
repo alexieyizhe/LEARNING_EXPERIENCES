@@ -8,7 +8,12 @@
 
 <ion-content>
   <p *ngIf="!cur_user">Nothing here. For now...</p>
-  <p *ngIf="cur_user">{{cur_user.name}}</p>
+  <div *ngIf="cur_user" id="user_profile">
+    <h3>{{cur_user.name}}</h3>
+    <p>currently: <ion-input placeholder="action" [(ngModel)]="cur_user.action"></ion-input> <ion-input placeholder="working on" [(ngModel)]="cur_user.acting_on"></ion-input>!</p>
+    <button ion-button (click)="this.dataService.optQuickCheckin(true)">Opt In</button>
+  </div>
+
   <div id="login_div">
     <ion-input type="email" placeholder="Email" [(ngModel)]="login_email"></ion-input> 
     <ion-input type="password" placeholder="Password" [(ngModel)]="login_pass"></ion-input> 
