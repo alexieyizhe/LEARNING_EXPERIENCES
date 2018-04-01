@@ -57,7 +57,11 @@ export class DataProvider {
     this.users = [
       { id: 1, name: "Alex", email: "alex@equithon.org", pass: "alextest", role: "organizer", action: "helping organize", acting_on: "brunch", attended: [], participated: [], eaten: [] },
       { id: 2, name: "Meagan", email: "meagan@equithon.org", pass: "meagantest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] },
-      { id: 3, name: "Falah", email: "falah@equithon.org", pass: "falahtest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] }
+      { id: 3, name: "Falah", email: "falah@equithon.org", pass: "falahtest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] },
+      { id: 4, name: "Equihacker", email: "hackertest@equithon.org", pass: "hackertest", role: "hacker", action: "working on", acting_on: "my equithon project", attended: [], participated: [], eaten: [] },
+      { id: 5, name: "Equivolunteer", email: "volunteertest@equithon.org", pass: "volunteertest", role: "volunteer", action: "helping serve", acting_on: "aunty's kitchen", attended: [], participated: [], eaten: [] },
+      { id: 6, name: "Equimentor", email: "mentortest@equithon.org", pass: "mentortest", role: "mentor", action: "available for guidance in", acting_on: "node.js, react", attended: [], participated: [], eaten: [] },
+      { id: 7, name: "Equisponsor", email: "sponsortest@equithon.org", pass: "sponsortest", role: "sponsor", action: "manning the booth at the", acting_on: "networking fair", attended: [], participated: [], eaten: [] }
     ];
 
     for(var i = 0; i < this.users.length; i++){

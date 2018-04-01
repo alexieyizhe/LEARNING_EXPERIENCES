@@ -11,7 +11,7 @@
   <div *ngIf="cur_user" id="user_profile">
     <h3>{{cur_user.name}}</h3>
     <p>currently: <ion-input placeholder="action" [(ngModel)]="cur_user.action"></ion-input> <ion-input placeholder="working on" [(ngModel)]="cur_user.acting_on"></ion-input>!</p>
-    <button ion-button (click)="this.dataService.optQuickCheckin(true)">Opt In</button>
+    <button ion-button *ngIf="this.cur_user.role === 'volunteer' || this.cur_user.role === 'organizer'" (click)="this.dataService.optQuickCheckin(true)">Opt In</button>
   </div>
 
   <div id="login_div">
