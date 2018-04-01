@@ -8,25 +8,21 @@
 
 <ion-content>
   <ion-label>Add A New User</ion-label>
-    <ion-item> 
-      <ion-input type="number" placeholder="New ID" [(ngModel)]="new_user_id" (ngModelChange)="new_user_id = convertToNumber($event)"></ion-input>
-      <ion-input placeholder="New User's Name" [(ngModel)]="new_user_name"></ion-input> 
-    </ion-item> 
-    <!--<ion-item>  </ion-item>-->
-    <ion-item>
-        <ion-label>Role</ion-label>
-        <ion-select [(ngModel)]="new_user_role">
-          <ion-option value="organizer">Organizer</ion-option>
-          <ion-option value="volunteer">Volunteer</ion-option>
-          <ion-option value="mentor">Mentor</ion-option>
-          <ion-option value="sponsor">Sponsor</ion-option>
-          <ion-option value="hacker">Hacker</ion-option>
-        </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Had Dinner?</ion-label>
-      <ion-toggle [(ngModel)]="new_user_had_dinner"></ion-toggle>
-    </ion-item>
+  <ion-item> 
+    <ion-input type="number" placeholder="New ID" [(ngModel)]="new_user_id" (ngModelChange)="new_user_id = convertToNumber($event)"></ion-input>
+    <ion-input placeholder="New User's Name" [(ngModel)]="new_user_name"></ion-input> 
+  </ion-item> 
+  <!--<ion-item>  </ion-item>-->
+  <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select [(ngModel)]="new_user_role">
+        <ion-option value="organizer">Organizer</ion-option>
+        <ion-option value="volunteer">Volunteer</ion-option>
+        <ion-option value="mentor">Mentor</ion-option>
+        <ion-option value="sponsor">Sponsor</ion-option>
+        <ion-option value="hacker">Hacker</ion-option>
+      </ion-select>
+  </ion-item>
   <button ion-button (click)="addUser()">Add A User</button>
   
   <!--<ion-input placeholder="{{this.search_by}}" [(ngModel)]="search_query" (ngModelChange)="query_user_id = convertToNumber($event)"></ion-input>

@@ -13,6 +13,8 @@ export class AdminPage {
   new_user_id: number;
   new_user_name: string;
   new_user_role: string;
+  new_user_email: string;
+  new_user_pass: string;
 
 
   constructor(public navCtrl: NavController, public view: ViewController, public dataService: DataProvider) {
@@ -28,12 +30,16 @@ export class AdminPage {
     id: %d
     name: %s
     role: %s
-    `, this.new_user_id, this.new_user_name, this.new_user_role);
+    email: %s
+    password: %s
+    `, this.new_user_id, this.new_user_name, this.new_user_role, this.new_user_email, this.new_user_pass);
 
     let new_user = {
       id: this.new_user_id,
       name: this.new_user_name,
       role: this.new_user_role,
+      email: this.new_user_email, 
+      pass: this.new_user_pass
     }
     this.view.dismiss(new_user, null);
   }

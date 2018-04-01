@@ -23,7 +23,8 @@
 
       <ion-label>Workshops</ion-label>
       <ion-list>
-        <ion-item *ngFor="let ws of user.attended;let i=index">
+        <!-- for some reason iteration using ngFor cannot track indexes properly, see https://github.com/angular/angular/issues/10423#issuecomment-236808128 -->
+        <ion-item *ngFor="let ws of user.attended;let i=index; trackBy: trackByIndex">
           <ion-label>{{workshops[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.attended[i]"></ion-toggle>
         </ion-item>
@@ -31,7 +32,7 @@
 
       <ion-label>Activities</ion-label>
       <ion-list>
-        <ion-item *ngFor="let ac of user.participated;let i=index">
+        <ion-item *ngFor="let ac of user.participated;let i=index; trackBy: trackByIndex">
           <ion-label>{{activities[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.participated[i]"></ion-toggle>
         </ion-item>
@@ -39,7 +40,7 @@
 
       <ion-label>Food</ion-label>
       <ion-list>
-        <ion-item *ngFor="let fd of user.eaten;let i=index">
+        <ion-item *ngFor="let fd of user.eaten;let i=index; trackBy: trackByIndex">
           <ion-label>{{meals[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.eaten[i]"></ion-toggle>
         </ion-item>

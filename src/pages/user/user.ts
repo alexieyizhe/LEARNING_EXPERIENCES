@@ -71,6 +71,10 @@ export class UserPage {
     }
   }
 
+  trackByIndex(index: number, value: number) {
+    return index;
+  }
+  
   close(){
     this.view.dismiss(this.user);
   }

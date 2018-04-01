@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController} from 'ionic-angular';
 import { AdminPage } from '../admin/admin';
-import { UserPage } from '../user/user';
-import { HttpModule } from '@angular/http';
 import { DataProvider } from '../../providers/data/data';
 import { DetailProvider } from '../../providers/detail/detail';
 
@@ -31,7 +29,7 @@ export class DirectoryPage {
     adminModal.onDidDismiss((new_user, results) => {
 
       if(new_user){
-        this.dataService.addUser(new_user.id, new_user.name, new_user.role);
+        this.dataService.addUser(new_user.id, new_user.name, new_user.role, new_user.email, new_user.pass);
       }
       if(results){
         this.users = results;

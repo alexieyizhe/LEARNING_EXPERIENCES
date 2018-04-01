@@ -7,6 +7,14 @@
 </ion-header>
 
 <ion-content>
-  Nothing here. For now...
+  <p *ngIf="!cur_user">Nothing here. For now...</p>
+  <p *ngIf="cur_user">{{cur_user.name}}</p>
+  <div id="login_div">
+    <ion-input type="email" placeholder="Email" [(ngModel)]="login_email"></ion-input> 
+    <ion-input type="password" placeholder="Password" [(ngModel)]="login_pass"></ion-input> 
+    <button ion-button (click)="userLogIn()">Log In</button>
+    <p id="login_error">error. you have entered an invalid email/password. please try again.</p>
+  </div>
+  
 </ion-content>
   

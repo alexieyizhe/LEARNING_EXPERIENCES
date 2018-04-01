@@ -12,7 +12,6 @@ export class DataProvider {
   readonly INTERMEDIATE = 2;
   readonly ADVANCED = 3;
 
-  users = [];
   workshops = [
     {name: "Programming Fundamentals", location: "QNC 2506", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 90},
     {name: "Intro to Web Dev", location: "QNC 2507", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
@@ -48,12 +47,15 @@ export class DataProvider {
   ];
 
 
+  users = [];
+  cur_user = null;
+
   constructor(public http: HttpClient) {
 
     this.users = [
-      { id: 1, name: "Alex", role: "organizer", attended: [], participated: [], eaten: [] },
-      { id: 2, name: "Meagan", role: "organizer", attended: [], participated: [], eaten: [] },
-      { id: 3, name: "Falah", role: "organizer",  attended: [], participated: [], eaten: [] }
+      { id: 1, name: "Alex", role: "organizer", email: "alex@equithon.org", pass: "alextest", attended: [], participated: [], eaten: [] },
+      { id: 2, name: "Meagan", role: "organizer", email: "meagan@equithon.org", pass: "meagantest", attended: [], participated: [], eaten: [] },
+      { id: 3, name: "Falah", role: "organizer", email: "falah@equithon.org", pass: "falahtest",  attended: [], participated: [], eaten: [] }
     ];
 
     for(var i = 0; i < this.users.length; i++){
@@ -89,10 +91,12 @@ export class DataProvider {
 
   }
 
-  addUser(id, name, role){
+  addUser(id, name, role, email, pass){
     let new_user = {
       id: id,
       name: name,
+      email: email,
+      pass: pass,
       role: role,
       attended: [],
       participated: [],
@@ -102,17 +106,41 @@ export class DataProvider {
     for(var a = 0; a < this.activities.length; a++) new_user.participated.push(false);
     for(var m = 0; m < this.meals.length; m++) new_user.eaten.push(false);
 
+    this.users.push(new_user);
+
   }
 
   updateUser(some_user_id, some_user){
-    let update_indx = 0;
+    let user_indx = -1;
     for(var i = 0; i < this.users.length; i++){
       if(this.users[i].id === some_user_id){
-        update_indx = i;
+        user_indx = i;
         break;
       }
     }
-    this.users[update_indx] = some_user;
+    if(user_indx > -1) this.users[user_indx] = some_user;
   }
 
+  logIn(login_email, login_password){
+    let user_indx = -1;
+    for(var i = 0; i < this.users.length; i++){
+      if(this.users[i].email === login_email){
+        user_indx = i;
+        break;
+      }
+    }
+    if(user_indx > -1 ) console.log("inputted pass: %s\nactual pass: %s", login_password, this.users[user_indx].pass);
+    if(user_indx > - 1 && this.users[user_indx].pass === login_password){
+      console.log("successfully logged in!");
+      this.cur_user = this.users[user_indx];
+      return true;
+    }
+    console.log("there was an error logging in.");
+    return false;
+  }
+
+  getCurUser(){
+    return this.cur_user;
+  }
+  
 }
