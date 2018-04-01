@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { ScannerPage } from '../pages/scanner/scanner';
+import { UsersearchPage } from '../pages/usersearch/usersearch';
 import { DirectoryPage } from '../pages/directory/directory';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -25,6 +26,7 @@ import { DetailProvider } from '../providers/detail/detail';
     MyApp,
     ProfilePage,
     ScannerPage,
+    UsersearchPage,
     DirectoryPage,
     TabsPage,
     AdminPage,
@@ -43,6 +45,7 @@ import { DetailProvider } from '../providers/detail/detail';
     MyApp,
     ProfilePage,
     ScannerPage,
+    UsersearchPage,
     DirectoryPage,
     TabsPage,
     AdminPage,

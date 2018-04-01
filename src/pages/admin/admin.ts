@@ -41,7 +41,7 @@ export class AdminPage {
       email: this.new_user_email, 
       pass: this.new_user_pass
     }
-    this.view.dismiss(new_user, null);
+    this.view.dismiss(new_user);
   }
 
   close(){

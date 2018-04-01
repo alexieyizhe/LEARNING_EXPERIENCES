@@ -20,12 +20,13 @@
           <ion-option value="hacker">Hacker</ion-option>
         </ion-select>
     </ion-item>
+    <!-- normal checkin view -->
     <div id="editable_volunteer-non-quick">
       <ion-label>Workshops</ion-label>
       <ion-list>
         <!-- for some reason iteration using ngFor cannot track indexes properly, see https://github.com/angular/angular/issues/10423#issuecomment-236808128 -->
         <ion-item *ngFor="let ws of user.attended;let i=index; trackBy: trackByIndex">
-          <ion-label>{{workshops[i].name}}</ion-label>
+          <ion-label>{{this.dataService.workshops[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.attended[i]"></ion-toggle>
         </ion-item>
       </ion-list>
@@ -33,7 +34,7 @@
       <ion-label>Activities</ion-label>
       <ion-list>
         <ion-item *ngFor="let ac of user.participated;let i=index; trackBy: trackByIndex">
-          <ion-label>{{activities[i].name}}</ion-label>
+          <ion-label>{{this.dataService.activities[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.participated[i]"></ion-toggle>
         </ion-item>
       </ion-list>
@@ -41,11 +42,12 @@
       <ion-label>Food</ion-label>
       <ion-list>
         <ion-item *ngFor="let fd of user.eaten;let i=index; trackBy: trackByIndex">
-          <ion-label>{{meals[i].name}}</ion-label>
+          <ion-label>{{this.dataService.meals[i].name}}</ion-label>
           <ion-toggle [(ngModel)]="user.eaten[i]"></ion-toggle>
         </ion-item>
       </ion-list>
     </div>
+    <!-- quick checkin -->
     <span *ngIf="this.dataService.cu_is_quick">
       <div id="editable_volunteer-quick">
         <ion-label>{{this.dataService.cu_quick_checkin.name}}</ion-label>

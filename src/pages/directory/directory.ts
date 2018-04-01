@@ -22,21 +22,7 @@ export class DirectoryPage {
   }
 
   openAdmin() {
-    console.log('opening admin panel...')
-
-    let adminModal = this.modalCtrl.create(AdminPage, null, {cssClass: "user-modal"});
-
-    adminModal.onDidDismiss((new_user, results) => {
-
-      if(new_user){
-        this.dataService.addUser(new_user.id, new_user.name, new_user.role, new_user.email, new_user.pass);
-      }
-      if(results){
-        this.users = results;
-      }
-    })
-
-    adminModal.present();
+    this.detailService.openAdmin();
   }
 
   viewUser(user){
