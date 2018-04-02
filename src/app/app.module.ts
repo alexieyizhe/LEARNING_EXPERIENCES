@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MyApp } from './app.component';
@@ -57,6 +58,7 @@ import { DetailProvider } from '../providers/detail/detail';
     StatusBar,
     SplashScreen,
     HttpClientModule,
+    QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     DetailProvider

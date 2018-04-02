@@ -1,28 +1,43 @@
 <ion-header>
   <ion-navbar>
-    <ion-title [innerHtml]="user.name"></ion-title>
+    <img src="../../assets/imgs/user_profile_pics/profpic_andres.jpg" id="avatar_header_img">
+    <ion-title>
+      {{user.name}}
+    </ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <!-- VIEW -->
   <span *ngIf="user_display_type === DISPLAY_VIEW" id="display_view">
-    <p class="role">Role: {{user.role}}</p>
-    <p class="status">currently: {{this.dataService.actions[user.status.action].action}}</p>
-    <p class="workshop_tracker">workshops attended: {{ attended_length }}</p>
-    <p class="activity_tracker">activities participated in: {{user.participated.length}}</p>
-    <p class="meal_tracker">meals eaten: {{user.eaten.length}}</p>
-    <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    <ion-item>
+        <p class="role">Role: {{user.role}}</p>
+    </ion-item>
+    <ion-item>
+        <p class="status">currently: {{this.dataService.actions[user.status.action].action}}</p>
+    </ion-item>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
   </span>
 
   <!-- ORGANIZER EDIT -->
   <span *ngIf="user_display_type === DISPLAY_SUDOEDIT" id="sudoedit_view">
     <ion-item> 
-      <ion-input placeholder="User Name" [(ngModel)]="user.name"></ion-input> 
+      <ion-input placeholder="User Name" [(ngModel)]="user.name" [formControl]="saveCtrl"></ion-input> 
     </ion-item> 
     <ion-item>
       <ion-label>Role</ion-label>
-      <ion-select [(ngModel)]="user.role">
+      <ion-select [(ngModel)]="user.role" name="user.role">
         <ion-option value="organizer">Organizer</ion-option>
         <ion-option value="volunteer">Volunteer</ion-option>
         <ion-option value="mentor">Mentor</ion-option>
@@ -31,16 +46,18 @@
       </ion-select>
     </ion-item>
     <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span></p>
-    <p class="workshop_tracker">workshops attended: {{user.attended.length}}</p>
-    <p class="activity_tracker">activities participated in: {{user.participated.length}}</p>
-    <p class="meal_tracker">meals eaten: {{user.eaten.length}}</p>
-    <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
   </span>
 
   <!-- EDIT -->
   <span *ngIf="user_display_type === DISPLAY_EDIT" id="edit_view">
     <ion-item> 
-      <ion-input placeholder="User Name" [(ngModel)]="user.name"></ion-input> 
+      <ion-input placeholder="User Name" [(ngModel)]="user.name" [formControl]="saveCtrl"></ion-input> 
     </ion-item> 
     <p class="role">Role: {{user.role}}</p>
     <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span></p>
@@ -51,24 +68,29 @@
         </ion-select>
       </ion-item>
     </span>
-    <p class="workshop_tracker">workshops attended: {{user.attended.length}}</p>
-    <p class="activity_tracker">activities participated in: {{user.participated.length}}</p>
-    <p class="meal_tracker">meals eaten: {{user.eaten.length}}</p>
-    <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
   </span>
   
 
   <!-- CHECKIN -->
   <span *ngIf="user_display_type === DISPLAY_CHECKIN && !this.dataService.cur_user.scan_stats.quick" id="checkin_view">
-    <ion-label>Workshops</ion-label>
+    <ion-item> 
+      <p>Check {{user.name}} in:</p>
+    </ion-item> 
     <ion-list>
       <!-- for some reason iteration using ngFor cannot track indexes properly, see https://github.com/angular/angular/issues/10423#issuecomment-236808128 -->
-      <ion-item *ngFor="let ws of user.attended;let i=index; trackBy: trackByIndex">
-        <ion-label>{{this.dataService.workshops[i].name}}</ion-label>
-        <ion-toggle [(ngModel)]="user.attended[i]"></ion-toggle>
+      <ion-item *ngFor="let ws of user.at_evnts;let i=index; trackBy: trackByIndex">
+        <ion-icon name="star"></ion-icon>
+        <ion-label>{{this.dataService.events[i].name}}</ion-label>
+        <ion-toggle [(ngModel)]="user.at_evnts[i]"></ion-toggle>
       </ion-item>
     </ion-list>
-
+    <!--
     <ion-label>Activities</ion-label>
     <ion-list>
       <ion-item *ngFor="let ac of user.participated;let i=index; trackBy: trackByIndex">
@@ -83,18 +105,14 @@
         <ion-label>{{this.dataService.meals[i].name}}</ion-label>
         <ion-toggle [(ngModel)]="user.eaten[i]"></ion-toggle>
       </ion-item>
-    </ion-list>
-  </span>
+    </ion-list>-->
+  </span> 
 
   <!-- QUICK CHECKIN -->
   <span *ngIf="user_display_type === DISPLAY_CHECKIN && this.dataService.cur_user.scan_stats.quick" id="quickci_view">
-    <ion-label>{{this.dataService.cu_quick_checkin.name}}</ion-label>
-    <ion-toggle *ngIf="this.dataService.cu_quick_checkin.type === 'workshop'" [(ngModel)]="user.attended[this.dataService.cu_quick_checkin.type_indx]"></ion-toggle>
-    <ion-toggle *ngIf="this.dataService.cu_quick_checkin.type === 'activity'" [(ngModel)]="user.participated[this.dataService.cu_quick_checkin.type_indx]"></ion-toggle>
-    <ion-toggle *ngIf="this.dataService.cu_quick_checkin.type === 'meal'" [(ngModel)]="user.eaten[this.dataService.cu_quick_checkin.type_indx]"></ion-toggle>
+    <ion-label>{{this.dataService.cur_user.scan_stats.quick_evnt.name}}</ion-label>
+    <ion-toggle [(ngModel)]="user.at_evnts[this.dataService.events.indexOf(this.dataService.cur_user.scan_stats.quick_evnt)]"></ion-toggle>
   </span>
-
-  <button ion-button (click)="close()">x close</button>
   
 </ion-content>
       

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { FormControl } from '@angular/forms';
+import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { DataProvider } from '../../../providers/data/data';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'page-user',
@@ -14,24 +16,31 @@ export class UserPage {
   readonly DISPLAY_CHECKIN = 4;
   readonly DISPLAY_QUICKCI = 5;
   
+  saveCtrl: FormControl;
   user;
-  attended_length: number;
+  workshops_at: number;
+  activities_at: number;
+  meals_at: number;
   user_display_type: number = this.DISPLAY_VIEW;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public view: ViewController, public dataService: DataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public view: ViewController, public toastCtrl: ToastController,
+    public dataService: DataProvider) {
+    this.saveCtrl = new FormControl();
     console.log("what")
     console.log("%s", this.navParams.get("display_params").user.name);
     console.log("%s", this.navParams.get("display_params").display_type);
     this.user_display_type = Number(navParams.get("display_params").display_type);
     this.user = this.navParams.get("display_params").user;
-    console.log("%s", this.user.name);
-    this.attended_length = this.user.attended.reduce((acc, x) => {x ? acc + 1 : acc; return acc;}, 0)
-    console.log("%d", this.attended_length);
+    this.workshops_at = (this.user.at_evnts.filter(evnt => evnt.type === "workshop")).length;
+    this.activities_at = (this.user.at_evnts.filter(evnt => evnt.type === "activity")).length;
+    this.meals_at = (this.user.at_evnts.filter(evnt => evnt.type === "meal")).length;
   }
 
   ionViewDidLoad() {
     console.log('loaded user page with edit value %d', this.user_display_type);
+    this.saveCtrl.valueChanges.debounceTime(2000).subscribe(user_change => {this.alertSave()});
   }
 
   trackByIndex(index: number, value: number) {
@@ -39,6 +48,19 @@ export class UserPage {
   }
 
   editStatus(){
+  }
+
+  alertSave(){
+    let save_toast = this.toastCtrl.create({
+      message: "Your changes have been automatically saved!",
+      duration: 1000,
+      position: "top",
+      cssClass: "save_toast",
+      showCloseButton: true,
+      dismissOnPageChange: true
+    });
+
+    save_toast.present();
   }
 
   close(){

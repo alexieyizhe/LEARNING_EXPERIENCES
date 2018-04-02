@@ -33,11 +33,18 @@ export class DetailProvider {
 
   }
 
-  openAdmin() {
+  showAdmin() {
     console.log('opening admin panel...')
 
     let adminModal = this.modalCtrl.create(AdminPage, null, {cssClass: "detail-modal user-modal"});
     adminModal.present();
+  }
+
+  showContact(){
+    console.log("opening contact info page...")
+
+    let contactModal = this.modalCtrl.create(ContactPage, null, {cssClass: "detail-modal contact-modal"});
+    contactModal.present();
   }
 
   showError(){
@@ -45,10 +52,6 @@ export class DetailProvider {
     
     let errorModal = this.modalCtrl.create(ErrorPage, null, {cssClass: "detail-modal error-modal"});
     errorModal.present();
-  }
-  
-  showContact(){
-  
   }
 
 }

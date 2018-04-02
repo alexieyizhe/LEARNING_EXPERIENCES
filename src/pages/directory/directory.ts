@@ -17,11 +17,11 @@ export class DirectoryPage {
   }
 
   openAdmin() {
-    this.detailService.openAdmin();
+    this.detailService.showAdmin();
   }
 
   viewUser(user){
-    this.detailService.showUser({user: user, display_type: 1});
+    this.detailService.showUser({user: user, display_type: 2});
   }
 
 }

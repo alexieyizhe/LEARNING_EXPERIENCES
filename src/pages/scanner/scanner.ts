@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { DetailProvider } from './../../providers/detail/detail';
 import { DataProvider } from './../../providers/data/data';
+import { Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-scanner',
@@ -10,13 +12,49 @@ import { DataProvider } from './../../providers/data/data';
 export class ScannerPage {
 
   query_user_id: number;
-  query_user: any = null;
+  user: any = null;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public dataService: DataProvider, public detailService: DetailProvider) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
+              public dataService: DataProvider, public detailService: DetailProvider,
+              public pltfrm: Platform, public qrScanner: QRScanner) {       
+  }
 
+  ionViewDidLoad(){
   }
 
   public convertToNumber(event):number { return +event; }
+
+  openScanner(){
+    this.pltfrm.ready().then(() => {this.qrScanner.prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          // camera permission was granted
+
+
+          // start scanning
+          let scanner = this.qrScanner.scan().subscribe((text: string) => {
+            console.log('Scanned something', text);
+
+            this.qrScanner.hide(); // hide camera preview
+            scanner.unsubscribe(); // stop scanning
+          });
+
+          // show camera preview
+          this.qrScanner.show();
+
+          // wait for user to scan something, then the observable callback will be called
+
+        } else if (status.denied) {
+          // camera permission was permanently denied
+          // you must use QRScanner.openSettings() method to guide the user to the settings page
+          // then they can grant the permission from there
+        } else {
+          // permission was denied, but not permanently. You can ask for permission again at a later time.
+        }
+      })
+      .catch((e: any) => console.log('Error is', e));
+    })
+  }
   
   viewUser(){
     
@@ -33,8 +71,8 @@ export class ScannerPage {
       console.log("loading dismissed!")
       let users = this.dataService.searchUsers("id", String(this.query_user_id));
       if(users.length === 1){
-        this.query_user = users[0];
-        //this.detailService.showUser({this.query_user, true});
+        this.user = users[0];
+        this.detailService.showUser({user:this.user, display_type:3});
       } else {
         this.detailService.showError();
       }

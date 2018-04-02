@@ -18,23 +18,43 @@ export class DataProvider {
   readonly VOLUNTEER = 3;
   readonly HACKER = 4;
 
-  workshops = [
-    {name: "Programming Fundamentals", location: "QNC 2506", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 90},
-    {name: "Intro to Web Dev", location: "QNC 2507", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
-    {name: "Intro to Android Dev", location: "QNC 2506", time: "11:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
-    {name: "Intro to iOS Dev", location: "QNC 2507", time: "11:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
-    {name: "Intro to Game Dev", location: "QNC 2506", time: "13:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
-    {name: "React & JS Web Dev", location: "QNC 2507", time: "13:30", duration: 60, type: this.TECHNICAL, level: this.INTERMEDIATE, spots: 40},
-    {name: "Intermediate Software Dev", location: "QNC 1506", time: "15:30", duration: 60, type: this.TECHNICAL, level: this.INTERMEDIATE, spots: 40},
-    {name: "Hardware Meets Software", location: "QNC 2506", time: "15:30", duration: 60, type: this.TECHNICAL, level: this.INTERMEDIATE, spots: 30},
-    {name: "Data Science", location: "QNC 1506", time: "1:30", duration: 60, type: this.TECHNICAL, level: this.ADVANCED, spots: 22},
-    {name: "Virtual & Augmented Reality", location: "QNC 1506", time: "1:30", duration: 60, type: this.TECHNICAL, level: this.INTERMEDIATE, spots: 19},
-    {name: "Intro to UI/UX Design", location: "STC 0040", time: "15:30", duration: 60, type: this.NON_TECHNICAL, level: this.BEGINNER, spots: 50},
-    {name: "Developing Your Idea", location: "STC 0010", time: "15:30", duration: 60, type: this.NON_TECHNICAL, level: this.BEGINNER, spots: 50},
-    {name: "Pitching Your Idea", location: "STC 0010", time: "17:30", duration: 60, type: this.NON_TECHNICAL, level: this.BEGINNER, spots: 50},
-    {name: "Good Health, Good Code", location: "QNC 2506", time: "19:30", duration: 60, type: this.NON_TECHNICAL, level: this.BEGINNER, spots: 30},
-    {name: "Build A Team!", location: "STC 0010", time: "21:00", duration: 180, type: this.OTHER_TYPE, level: this.BEGINNER, spots: 150},
+  readonly WORKSHOP_END = 15;
+  readonly ACTIVITY_END = 21;
+  readonly MEAL_END = 27;
+  
+
+  events = [
+    {name: "Programming Fundamentals", type: "workshop", location: "QNC 2506", time: "10:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "Intro to Web Dev", type: "workshop", location: "QNC 2507", time: "10:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "Intro to Android Dev", type: "workshop", location: "QNC 2506", time: "11:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "Intro to iOS Dev", type: "workshop", location: "QNC 2507", time: "11:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "Intro to Game Dev", type: "workshop", location: "QNC 2506", time: "13:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "React & JS Web Dev", type: "workshop", location: "QNC 2507", time: "13:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.BEGINNER}},
+    {name: "Intermediate Software Dev", type: "workshop", location: "QNC 1506", time: "15:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.INTERMEDIATE}},
+    {name: "Hardware Meets Software", type: "workshop", location: "QNC 2506", time: "15:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.INTERMEDIATE}},
+    {name: "Data Science", type: "workshop", location: "QNC 1506", time: "1:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.ADVANCED}},
+    {name: "Virtual & Augmented Reality", type: "workshop", location: "QNC 1506", time: "1:30", duration: 60, spots: 150, misc: {cat: this.TECHNICAL, level: this.INTERMEDIATE}},
+    {name: "Intro to UI/UX Design", type: "workshop", location: "STC 0040", time: "15:30", duration: 60, spots: 150, misc: {cat: this.NON_TECHNICAL, level: this.BEGINNER}},
+    {name: "Developing Your Idea", type: "workshop", location: "STC 0010", time: "15:30", duration: 60, spots: 150, misc: {cat: this.NON_TECHNICAL, level: this.BEGINNER}},
+    {name: "Pitching Your Idea", type: "workshop", location: "STC 0010", time: "17:30", duration: 60, spots: 150, misc: {cat: this.NON_TECHNICAL, level: this.BEGINNER}},
+    {name: "Good Health, Good Code", type: "workshop", location: "QNC 2506", time: "19:30", duration: 60, spots: 150, misc: {cat: this.NON_TECHNICAL, level: this.BEGINNER}},
+    {name: "Build A Team!", type: "workshop", location: "STC 0010", time: "21:00", duration: 180, spots: 150, misc: {cat: this.OTHER_TYPE, level: this.BEGINNER}},
+    
+    {name: "Therapy Dogs", type: "activity", location: "STC Concourse", time: "15:30", duration: 60, spots: 30},
+    {name: "Minute To Win It!", type: "activity", location: "STC 1035", time: "15:30", duration: 60, spots: 30},
+    {name: "Meditation", type: "activity", location: "QNC 1507", time: "19:30", duration: 60, spots: 30},
+    {name: "Photo Booth", type: "activity", location: "STC Basement", time: "17:30", duration: 60, spots: 30},
+    {name: "Networking Fair", type: "activity", location: "STC 1012", time: "9:15", duration: 60, spots: 30},
+    {name: "Hackenger Hunt", type: "activity", location: "Various Locations", time: "18:30", duration: 60, spots: 30},
+
+    {name: "Shawarma Plus", type: "meal", location: "STC Basement", time: "12:30", duration: 120, spots: 400},
+    {name: "Aunty's Kitchen", type: "meal",  location: "STC Basement", time: "19:30", duration: 120, spots: 400},
+    {name: "The Grill", type: "meal", location: "STC Basement", time: "19:30", duration: 120, spots: 400},
+    {name: "Vincenzo's", type: "meal",location: "STC Basement", time: "13:30", duration: 120, spots: 400},
+    {name: "Breakfast", type: "meal", location: "STC Basement", time: "8:45", duration: 120, spots: 400},
+    {name: "Brunch", type: "meal", location: "STC Basement", time: "10:30", duration: 120, spots: 400}
   ];
+  /*
   activities = [
     {name: "Therapy Dogs", location: "STC Concourse", time: "15:30", duration: 60, spots: 30},
     {name: "Minute To Win It!", location: "STC 1035", time: "15:30", duration: 60, spots: 30},
@@ -50,7 +70,7 @@ export class DataProvider {
     {name: "Vincenzo's", location: "STC Basement", time: "13:30", duration: 120, spots: 400},
     {name: "Breakfast", location: "STC Basement", time: "8:45", duration: 120, spots: 400},
     {name: "Brunch", location: "STC Basement", time: "10:30", duration: 120, spots: 400}
-  ];
+  ]; */
 
   actions = [
     // defaults
@@ -69,71 +89,59 @@ export class DataProvider {
     {action: "helping out at ", need_secondary: "event", available_to: [true, true, true, true, false] },
     {action: "chillin' at ", need_secondary: "event", available_to: [true, true, true, true, true] },
     {action: "answering questions about ", need_secondary: "input", available_to: [true, true, true, false, false] },
-  ]
+  ];
 
+  // -------------- SEED DATA --------------------------------
+  users = [
+    { id: 1, name: "Alex", avatar: "profpic_alex.jpg", 
+      email: "alex@equithon.org", pass: "alextest", 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[3], amt: 3 } },
 
-  users = [];
-  cur_user = null;  // info: a user; quickci: an event
-                          // ^^ allows current user (if volunteer) to quickly check ppl in
+    { id: 2, name: "Meagan", avatar: "profpic_meagan.jpg", 
+      email: "meagan@equithon.org", pass: "meagantest", 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[14], amt: 55 } },
+
+    { id: 3, name: "Andres", avatar: "profpic_andres.jpg", 
+      email: "andres@equithon.org", pass: "andrestest", 
+      role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 12 } },
+
+    { id: 4, name: "Falah", avatar: "profpic_falah.jpg", 
+      email: "falah@equithon.org", pass: "falahtest", 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 36 } },
+
+    { id: 5, name: "Equihacker", avatar: "", 
+      email: "hackertest@equithon.org", pass: "hackertest", 
+      role: this.HACKER,  status: {action: this.VOLUNTEER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+
+    { id: 6, name: "Equivolunteer", avatar: "", 
+      email: "volunteertest@equithon.org", pass: "volunteertest", 
+      role: this.VOLUNTEER, status: {action: this.SPONSOR, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 95 } },
+
+    { id: 7, name: "Equimentor", avatar: "", 
+      email: "mentortest@equithon.org", pass: "mentortest", 
+      role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+
+    { id: 8, name: "Equisponsor", avatar: "", 
+      email: "sponsortest@equithon.org", pass: "sponsortest", 
+      role: this.SPONSOR, status: {action: this.VOLUNTEER, at_event: null }, 
+      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+
+  ];
+
+  cur_user = null;
   constructor(public http: HttpClient) {
-
-    // -------------- SEED DATA --------------------------------
-    this.users = [
-      { id: 1, name: "Alex", avatar: "profpic_alex.jpg", 
-        email: "alex@equithon.org", pass: "alextest", 
-        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: true, quick_evnt: this.meals[1], amt: 3 } },
-
-      { id: 2, name: "Meagan", avatar: "profpic_meagan.jpg", 
-        email: "meagan@equithon.org", pass: "meagantest", 
-        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: true, quick_evnt: this.activities[1], amt: 55 } },
-
-      { id: 3, name: "Andres", avatar: "profpic_andres.jpg", 
-        email: "andres@equithon.org", pass: "andrestest", 
-        role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 12 } },
-
-      { id: 4, name: "Falah", avatar: "profpic_falah.jpg", 
-        email: "falah@equithon.org", pass: "falahtest", 
-        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 36 } },
-
-      { id: 5, name: "Equihacker", avatar: "", 
-        email: "hackertest@equithon.org", pass: "hackertest", 
-        role: this.HACKER,  status: {action: this.HACKER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
-
-      { id: 6, name: "Equivolunteer", avatar: "", 
-        email: "volunteertest@equithon.org", pass: "volunteertest", 
-        role: this.VOLUNTEER, status: {action: this.VOLUNTEER, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 67 } },
-
-      { id: 7, name: "Equimentor", avatar: "", 
-        email: "mentortest@equithon.org", pass: "mentortest", 
-        role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
-
-      { id: 8, name: "Equisponsor", avatar: "", 
-        email: "sponsortest@equithon.org", pass: "sponsortest", 
-        role: this.SPONSOR, status: {action: this.SPONSOR, at_event: null }, 
-        attended: [], participated: [], eaten: [], 
-        scan_stats: { quick: false, quick_evnt: null, amt: 0 } }
-
-    ];
-    for(var i = 0; i < this.users.length; i++){
-      for(var w = 0; w < this.workshops.length; w++) this.users[i].attended.push(false);
-      for(var a = 0; a < this.activities.length; a++) this.users[i].participated.push(false);
-      for(var m = 0; m < this.meals.length; m++) this.users[i].eaten.push(false);
+    for(var u = 0; u < this.users.length; u++){
+      for(var e = 0; e < this.events.length; e++) this.users[u].at_evnts.push(false);
     }
 
+    this.cur_user = this.users[2];
   }
 
   searchUsers(search_by: string = "", query_term: string = ""){
@@ -166,18 +174,15 @@ export class DataProvider {
     let new_user = {
       id: id,
       name: name,
+      avatar: "",
       email: email,
       pass: pass,
       role: Number(role),
       status: {action: Number(role), at_event: null}, // set status to default for the user's role
-      attended: [],
-      participated: [],
-      eaten: [],
-      scanned: 0
+      at_evnts: [],
+      scan_stats: { quick: false, quick_evnt: null, amt: 0 },
     }
-    for(var w = 0; w < this.workshops.length; w++) new_user.attended.push(false);
-    for(var a = 0; a < this.activities.length; a++) new_user.participated.push(false);
-    for(var m = 0; m < this.meals.length; m++) new_user.eaten.push(false);
+    for(var e = 0; e < this.events.length; e++) new_user.at_evnts.push(false);
 
     this.users.push(new_user);
 
