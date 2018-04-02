@@ -10,7 +10,7 @@ import { DataProvider } from './../../providers/data/data';
 export class ScannerPage {
 
   query_user_id: number;
-  user: any = null;
+  query_user: any = null;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public dataService: DataProvider, public detailService: DetailProvider) {
 
@@ -33,8 +33,8 @@ export class ScannerPage {
       console.log("loading dismissed!")
       let users = this.dataService.searchUsers("id", String(this.query_user_id));
       if(users.length === 1){
-        this.user = users[0];
-        this.detailService.viewUser(this.user, true);
+        this.query_user = users[0];
+        //this.detailService.showUser({this.query_user, true});
       } else {
         this.detailService.showError();
       }

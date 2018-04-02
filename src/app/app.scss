@@ -21,13 +21,16 @@ ion-item:hover {
     background-color: #e2e2e2;
 }
 
+.modal-wrapper {
+    border-radius: 10px 10px 10px 10px;
+}
+
 @include media-breakpoint-down(sm) {
     .detail-modal {
         ion-backdrop {
             visibility: visible !important;
         }
         .modal-wrapper {
-            border-radius: 10px 10px 10px 10px;
             overflow: hidden;
             top: 10%;
             bottom: 10%;
