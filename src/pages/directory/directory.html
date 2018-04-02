@@ -1,15 +1,14 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>
-        Directory of Users
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let user of users" (click)="viewUser(user)">{{user.name}}</ion-item>
-    </ion-list>
-    <button ion-button (click)="openAdmin()">Admin Panel</button>
-  </ion-content>
-    
+  <ion-navbar>
+    <ion-title>
+      Directory of Users
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <ion-item *ngFor="let user of this.dataService.users" (click)="viewUser(user)">{{user.name}}</ion-item>
+  </ion-list>
+  <button ion-button (click)="openAdmin()">Admin Panel</button>
+</ion-content>

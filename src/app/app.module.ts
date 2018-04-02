@@ -11,10 +11,10 @@ import { UsersearchPage } from '../pages/usersearch/usersearch';
 import { DirectoryPage } from '../pages/directory/directory';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { AdminPage } from '../pages/admin/admin';
-import { UserPage } from '../pages/user/user';
-import { ContactPage } from '../pages/contact/contact';
-import { ErrorPage } from '../pages/error/error';
+import { AdminPage } from '../pages/detail-pages/admin/admin';
+import { UserPage } from '../pages/detail-pages/user/user';
+import { ContactPage } from '../pages/detail-pages/contact/contact';
+import { ErrorPage } from '../pages/detail-pages/error/error';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';

@@ -34,7 +34,7 @@ export class UsersearchPage {
       let users = this.dataService.searchUsers("id", String(this.query_user_id));
       if(users.length === 1){
         this.user = users[0];
-        this.detailService.viewUser(this.user, true);
+        this.detailService.showUser({user:this.user, display_type: 1});
       } else {
         this.detailService.showError();
       }

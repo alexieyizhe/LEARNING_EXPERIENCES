@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController} from 'ionic-angular';
-import { AdminPage } from '../admin/admin';
 import { DataProvider } from '../../providers/data/data';
 import { DetailProvider } from '../../providers/detail/detail';
 
@@ -10,15 +9,11 @@ import { DetailProvider } from '../../providers/detail/detail';
 })
 export class DirectoryPage {
 
-  
-  users;
-
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public dataService: DataProvider, public detailService: DetailProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
-    this.users = this.dataService.searchUsers();
+    console.log('loaded directory page');
   }
 
   openAdmin() {
@@ -26,7 +21,7 @@ export class DirectoryPage {
   }
 
   viewUser(user){
-    this.detailService.viewUser(user, false);
+    this.detailService.showUser({user: user, display_type: 1});
   }
 
 }

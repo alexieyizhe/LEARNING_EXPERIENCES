@@ -3,23 +3,37 @@
     <ion-title>
       Profile
     </ion-title>
+    <ion-buttons *ngIf="this.dataService.cur_user" end>
+      <button ion-button icon-only (click)="userEdit()">
+        <ion-icon name="build"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="userLogOut()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <p *ngIf="!cur_user">Nothing here. For now...</p>
-  <div *ngIf="cur_user" id="user_profile">
-    <h3>{{cur_user.name}}</h3>
-    <p>currently: <ion-input placeholder="action" [(ngModel)]="cur_user.action"></ion-input> <ion-input placeholder="working on" [(ngModel)]="cur_user.acting_on"></ion-input>!</p>
-    <button ion-button *ngIf="this.cur_user.role === 'volunteer' || this.cur_user.role === 'organizer'" (click)="this.dataService.optQuickCheckin(true)">Opt In</button>
+  <!-- LOGGED OUT -->
+  <div *ngIf="!this.dataService.cur_user" id="logged_out-view">
+    Log in to Equithon:
+    <ion-input type="email" placeholder="Email" [(ngModel)]="login_email"></ion-input> 
+    <ion-input type="password" placeholder="Password" (keyup.enter)="userLogIn()" [(ngModel)]="login_pass"></ion-input> 
+    <button ion-button (click)="userLogIn()">Log In</button>
   </div>
 
-  <div id="login_div">
-    <ion-input type="email" placeholder="Email" [(ngModel)]="login_email"></ion-input> 
-    <ion-input type="password" placeholder="Password" [(ngModel)]="login_pass"></ion-input> 
-    <button ion-button (click)="userLogIn()">Log In</button>
-    <p id="login_error">error. you have entered an invalid email/password. please try again.</p>
+  <!-- LOGGED IN -->
+  <div *ngIf="this.dataService.cur_user" id="logged_in-view">
+    <div id="top_info">
+      <img src="../../assets/imgs/user_profile_pics/profpic_andres.jpg" id="avatar_profpic">
+      <br>
+      <h3>{{this.dataService.cur_user.name}}</h3>
+      <br>
+      <span class="subheading">Co-chair &amp; Sponsorship Lead</span>
+      <br>
+      <span id="status">currently: {{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span>
+    </div>
   </div>
-  
 </ion-content>
   

@@ -12,6 +12,12 @@ export class DataProvider {
   readonly INTERMEDIATE = 2;
   readonly ADVANCED = 3;
 
+  readonly ORGANIZER = 0;
+  readonly MENTOR = 1;
+  readonly SPONSOR = 2;
+  readonly VOLUNTEER = 3;
+  readonly HACKER = 4;
+
   workshops = [
     {name: "Programming Fundamentals", location: "QNC 2506", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 90},
     {name: "Intro to Web Dev", location: "QNC 2507", time: "10:30", duration: 60, type: this.TECHNICAL, level: this.BEGINNER, spots: 65},
@@ -46,29 +52,88 @@ export class DataProvider {
     {name: "Brunch", location: "STC Basement", time: "10:30", duration: 120, spots: 400}
   ];
 
+  actions = [
+    // defaults
+    {action: "organizing Equithon!", need_secondary: null, available_to: [true, false, false, false, false] },
+    {action: "able to answer questions!", need_secondary: null, available_to: [true, true, true, false, false] },
+    {action: "volunteering!", need_secondary: null, available_to: [true, false, false, true, false] },
+    {action: "working on my project!", need_secondary: null, available_to: [false, false, false, false, true] },
+    
+    // non-specific statuses
+    {action: "just hanging out!", need_secondary: null, available_to: [true, true, true, true, true] },
+    {action: "taking a much needed break...zzz...", need_secondary: null, available_to: [true, true, true, true, true] },
+    {action: "eating some tasty food!", need_secondary: null, available_to: [true, true, true, true, true] },
+    {action: "dealing with a problem :/", need_secondary: null, available_to: [true, true, false, false, false] },
+    
+    // custom specific statuses
+    {action: "helping out at ", need_secondary: "event", available_to: [true, true, true, true, false] },
+    {action: "chillin' at ", need_secondary: "event", available_to: [true, true, true, true, true] },
+    {action: "answering questions about ", need_secondary: "input", available_to: [true, true, true, false, false] },
+  ]
+
 
   users = [];
-  cur_user = null;
-  cu_is_quick = false; // allows current user (if volunteer) to quickly check ppl in
-  cu_quick_checkin = null;
-
+  cur_user = null;  // info: a user; quickci: an event
+                          // ^^ allows current user (if volunteer) to quickly check ppl in
   constructor(public http: HttpClient) {
 
+    // -------------- SEED DATA --------------------------------
     this.users = [
-      { id: 1, name: "Alex", email: "alex@equithon.org", pass: "alextest", role: "organizer", action: "helping organize", acting_on: "brunch", attended: [], participated: [], eaten: [] },
-      { id: 2, name: "Meagan", email: "meagan@equithon.org", pass: "meagantest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] },
-      { id: 3, name: "Falah", email: "falah@equithon.org", pass: "falahtest", role: "organizer", action: "helping organize", acting_on: "Equithon", attended: [], participated: [], eaten: [] },
-      { id: 4, name: "Equihacker", email: "hackertest@equithon.org", pass: "hackertest", role: "hacker", action: "working on", acting_on: "my equithon project", attended: [], participated: [], eaten: [] },
-      { id: 5, name: "Equivolunteer", email: "volunteertest@equithon.org", pass: "volunteertest", role: "volunteer", action: "helping serve", acting_on: "aunty's kitchen", attended: [], participated: [], eaten: [] },
-      { id: 6, name: "Equimentor", email: "mentortest@equithon.org", pass: "mentortest", role: "mentor", action: "available for guidance in", acting_on: "node.js, react", attended: [], participated: [], eaten: [] },
-      { id: 7, name: "Equisponsor", email: "sponsortest@equithon.org", pass: "sponsortest", role: "sponsor", action: "manning the booth at the", acting_on: "networking fair", attended: [], participated: [], eaten: [] }
-    ];
+      { id: 1, name: "Alex", avatar: "profpic_alex.jpg", 
+        email: "alex@equithon.org", pass: "alextest", 
+        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: true, quick_evnt: this.meals[1], amt: 3 } },
 
+      { id: 2, name: "Meagan", avatar: "profpic_meagan.jpg", 
+        email: "meagan@equithon.org", pass: "meagantest", 
+        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: true, quick_evnt: this.activities[1], amt: 55 } },
+
+      { id: 3, name: "Andres", avatar: "profpic_andres.jpg", 
+        email: "andres@equithon.org", pass: "andrestest", 
+        role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 12 } },
+
+      { id: 4, name: "Falah", avatar: "profpic_falah.jpg", 
+        email: "falah@equithon.org", pass: "falahtest", 
+        role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 36 } },
+
+      { id: 5, name: "Equihacker", avatar: "", 
+        email: "hackertest@equithon.org", pass: "hackertest", 
+        role: this.HACKER,  status: {action: this.HACKER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+
+      { id: 6, name: "Equivolunteer", avatar: "", 
+        email: "volunteertest@equithon.org", pass: "volunteertest", 
+        role: this.VOLUNTEER, status: {action: this.VOLUNTEER, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 67 } },
+
+      { id: 7, name: "Equimentor", avatar: "", 
+        email: "mentortest@equithon.org", pass: "mentortest", 
+        role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+
+      { id: 8, name: "Equisponsor", avatar: "", 
+        email: "sponsortest@equithon.org", pass: "sponsortest", 
+        role: this.SPONSOR, status: {action: this.SPONSOR, at_event: null }, 
+        attended: [], participated: [], eaten: [], 
+        scan_stats: { quick: false, quick_evnt: null, amt: 0 } }
+
+    ];
     for(var i = 0; i < this.users.length; i++){
       for(var w = 0; w < this.workshops.length; w++) this.users[i].attended.push(false);
       for(var a = 0; a < this.activities.length; a++) this.users[i].participated.push(false);
       for(var m = 0; m < this.meals.length; m++) this.users[i].eaten.push(false);
     }
+
   }
 
   searchUsers(search_by: string = "", query_term: string = ""){
@@ -87,13 +152,13 @@ export class DataProvider {
       } else if(search_by === "role"){
         console.log("searching by user role %s", query_term);
         return this.users.filter((user) => {
-          return user.role.indexOf(query_term.toLowerCase()) > -1;
+          return user.role === Number(query_term);
         });
       }
-    } else { // return all users
-      console.log("searching with no query");
-      return this.users;
     }
+    // no search filter: return all users
+    console.log("searching with no query");
+    return this.users;
 
   }
 
@@ -103,12 +168,12 @@ export class DataProvider {
       name: name,
       email: email,
       pass: pass,
-      role: role,
-      action: "taking a break",
-      acting_on: "from work",
+      role: Number(role),
+      status: {action: Number(role), at_event: null}, // set status to default for the user's role
       attended: [],
       participated: [],
-      eaten: []
+      eaten: [],
+      scanned: 0
     }
     for(var w = 0; w < this.workshops.length; w++) new_user.attended.push(false);
     for(var a = 0; a < this.activities.length; a++) new_user.participated.push(false);
@@ -129,6 +194,14 @@ export class DataProvider {
     if(user_indx > -1) this.users[user_indx] = some_user;
   }
 
+  changeStatus(new_action, new_sec_event){
+    this.cur_user.status.action = new_action;
+    this.cur_user.status.at_event = new_sec_event;
+    if(this.cur_user.role === this.ORGANIZER || this.cur_user.role === this.VOLUNTEER){
+      // ask user if they want to turn on quick checkin using a modal
+    }
+  }
+
   logIn(login_email, login_password){
     let user_indx = -1;
     for(var i = 0; i < this.users.length; i++){
@@ -147,10 +220,11 @@ export class DataProvider {
     return false;
   }
 
-  getCurUser(){
-    return this.cur_user;
+  logOut(){
+    this.cur_user = null;
   }
 
+  /*
   optQuickCheckin(opt_in){ // cur_user needs to be non-null
     if(opt_in){
 
@@ -162,7 +236,7 @@ export class DataProvider {
             name: this.workshops[w].name,
             type_indx: w
           };
-          console.log("setting workshop as quick checkin");
+          console.log("setting %s as quick checkin", this.workshops[w].name);
           return this.cu_quick_checkin;
         }
       }
@@ -175,7 +249,7 @@ export class DataProvider {
             name: this.activities[a].name,
             type_indx: a
           };
-          console.log("setting activities as quick checkin");
+          console.log("setting %s as quick checkin", this.activities[a].name);
           return this.cu_quick_checkin;
         }
       }
@@ -188,7 +262,7 @@ export class DataProvider {
             name: this.meals[m].name,
             type_indx: m
           };
-          console.log("setting meals as quick checkin");
+          console.log("setting %s as quick checkin", this.meals[m].name);
           return this.cu_quick_checkin;
         }
       }
@@ -199,6 +273,6 @@ export class DataProvider {
     this.cu_quick_checkin = null;
 
     return null;
-  }
+  }*/
   
 }
