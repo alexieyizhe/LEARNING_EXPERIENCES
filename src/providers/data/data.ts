@@ -95,41 +95,41 @@ export class DataProvider {
   users = [
     { id: 1, name: "Alex", avatar: "profpic_alex.jpg", 
       email: "alex@equithon.org", pass: "alextest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [1, 3, 4], 
       at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[3], amt: 3 } },
 
     { id: 2, name: "Meagan", avatar: "profpic_meagan.jpg", 
       email: "meagan@equithon.org", pass: "meagantest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [],
       at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[14], amt: 55 } },
 
     { id: 3, name: "Andres", avatar: "profpic_andres.jpg", 
       email: "andres@equithon.org", pass: "andrestest", 
-      role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, 
+      role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, favs: [], 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 12 } },
 
     { id: 4, name: "Falah", avatar: "profpic_falah.jpg", 
       email: "falah@equithon.org", pass: "falahtest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, 
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [], 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 36 } },
 
     { id: 5, name: "Equihacker", avatar: "", 
       email: "hackertest@equithon.org", pass: "hackertest", 
-      role: this.HACKER,  status: {action: this.VOLUNTEER, at_event: null }, 
+      role: this.HACKER,  status: {action: this.VOLUNTEER, at_event: null }, favs: [], 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
 
     { id: 6, name: "Equivolunteer", avatar: "", 
       email: "volunteertest@equithon.org", pass: "volunteertest", 
-      role: this.VOLUNTEER, status: {action: this.SPONSOR, at_event: null }, 
+      role: this.VOLUNTEER, status: {action: this.SPONSOR, at_event: null }, favs: [], 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 95 } },
 
     { id: 7, name: "Equimentor", avatar: "", 
       email: "mentortest@equithon.org", pass: "mentortest", 
-      role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, 
+      role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, favs: [], 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
 
     { id: 8, name: "Equisponsor", avatar: "", 
-      email: "sponsortest@equithon.org", pass: "sponsortest", 
+      email: "sponsortest@equithon.org", pass: "sponsortest", favs: [], 
       role: this.SPONSOR, status: {action: this.VOLUNTEER, at_event: null }, 
       at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
 
@@ -179,6 +179,7 @@ export class DataProvider {
       pass: pass,
       role: Number(role),
       status: {action: Number(role), at_event: null}, // set status to default for the user's role
+      favs: [],
       at_evnts: [],
       scan_stats: { quick: false, quick_evnt: null, amt: 0 },
     }
@@ -205,6 +206,22 @@ export class DataProvider {
     if(this.cur_user.role === this.ORGANIZER || this.cur_user.role === this.VOLUNTEER){
       // ask user if they want to turn on quick checkin using a modal
     }
+  }
+
+  getUserStat(query: string){
+    let ret_lst = [];
+    console.log("getting stats query %s", query);
+    if(["workshop", "activity", "meal"].indexOf(query) > -1){
+      console.log("user searching for an activity");
+      for(var i = 0; i < this.cur_user.at_evnts.length; i++){
+        if(this.cur_user.at_evnts[i]) console.log("user attended %d!", i);
+        if(this.cur_user.at_evnts[i] && this.events[i].type === query){
+          console.log("found one event %s", this.events[i].name);
+          ret_lst.push(this.events[i]);
+        }
+      }
+    }
+    return ret_lst;
   }
 
   logIn(login_email, login_password){

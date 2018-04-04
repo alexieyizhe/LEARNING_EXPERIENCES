@@ -12,6 +12,11 @@ export class ProfilePage {
   login_email: string;
   login_pass: string;
 
+  pic_loc: string = "../../assets/imgs/user_profile_pics/profpic_default.png";
+  attended: number = this.dataService.cur_user ? this.dataService.getUserStat("workshop").length : 0;
+  participated: number = this.dataService.cur_user ? this.dataService.getUserStat("activity").length : 0;
+  eaten: number = this.dataService.cur_user ? this.dataService.getUserStat("meal").length : 0;
+
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, 
               public loadingCtrl: LoadingController, public toastCtrl: ToastController, 
@@ -41,6 +46,10 @@ export class ProfilePage {
       let login_message = "Invalid email or password!";
       if(login_success){
         login_message = "Successfully logged in!";
+        if(this.dataService.cur_user.avatar){
+          console.log("setting profile picture to correct one");
+          this.pic_loc = "../../assets/imgs/user_profile_pics/" + this.dataService.cur_user.avatar;
+        }
       }
 
       let login_toast = this.toastCtrl.create({
@@ -81,11 +90,18 @@ export class ProfilePage {
           handler: () => {
             console.log('logged out user');
             this.dataService.logOut();
+            this.attended = 0;
+            this.participated = 0;
+            this.eaten = 0;
           }
         }
       ]
     });
     logout_alert.present();
+  }
+
+  showUserFavs(){
+    console.log("showing user favs");
   }
 
 }

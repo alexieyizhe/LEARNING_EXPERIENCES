@@ -26,13 +26,32 @@
   <!-- LOGGED IN -->
   <div *ngIf="this.dataService.cur_user" id="logged_in-view">
     <div id="top_info">
-      <img src="../../assets/imgs/user_profile_pics/profpic_andres.jpg" id="avatar_profpic">
+      <img [src]="pic_loc" id="avatar_profpic">
       <br>
-      <h3>{{this.dataService.cur_user.name}}</h3>
+      <h3>{{this.dataService.cur_user.name}} <ion-icon name="ios-bulb"></ion-icon></h3>
       <br>
       <span class="subheading">Co-chair &amp; Sponsorship Lead</span>
       <br>
       <span id="status">currently: {{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span>
+    </div>
+    <div id="bottom_stats">
+      <div class="three-table">
+        <div class="cell-box">
+          <h5>WORKSHOPS</h5><!--<br>Attended:</h5>-->
+          {{this.dataService.getUserStat("workshop").length}}
+        </div>
+        <div class="cell-box">
+          <h5>ACTIVITIES</h5><!--<br>Attended:</h5>-->
+          {{this.dataService.getUserStat("activity").length}}
+        </div>
+        <div class="cell-box">
+          <h5>MEALS</h5><!--<br>Eaten:</h5>-->
+          {{this.dataService.getUserStat("meal").length}}
+        </div>
+      </div>
+      <ion-item (click)="showUserFavs()">
+        <h5>Favourites: {{ this.dataService.cur_user.favs.length }}</h5>
+      </ion-item>
     </div>
   </div>
 </ion-content>

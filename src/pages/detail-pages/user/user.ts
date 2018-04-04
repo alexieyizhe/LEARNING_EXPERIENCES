@@ -48,6 +48,7 @@ export class UserPage {
   }
 
   editStatus(){
+    console.log("editing status...");
   }
 
   alertSave(){

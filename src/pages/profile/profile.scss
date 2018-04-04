@@ -12,7 +12,7 @@ page-profile {
         margin-left: auto;
         margin-right: auto;
         padding-top: 40px;
-        padding-bottom: 40px;
+        margin-bottom: 40px;
         width: 50%;
         text-align: center;
     }
@@ -25,6 +25,21 @@ page-profile {
 
     #status {
         color: white;
+    }
+    .three-table {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        text-align: center;
+        padding-bottom: 40px;
+        .cell-box {
+            display: table-cell;
+            width: 33%;
+            margin-left: 20px;
+            margin-right: 20px;
+            color: white;
+        }
     }
 }
 #avatar_profpic {
