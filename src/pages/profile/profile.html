@@ -16,23 +16,23 @@
 
 <ion-content>
   <!-- LOGGED OUT -->
-  <div *ngIf="!this.dataService.cur_user" id="logged_out-view">
+  <div *ngIf="!dataService.cur_user" id="logged_out-view" (keyup.enter)="userLogIn()">
     Log in to Equithon:
     <ion-input type="email" placeholder="Email" [(ngModel)]="login_email"></ion-input> 
-    <ion-input type="password" placeholder="Password" (keyup.enter)="userLogIn()" [(ngModel)]="login_pass"></ion-input> 
+    <ion-input type="password" placeholder="Password" [(ngModel)]="login_pass"></ion-input> 
     <button ion-button (click)="userLogIn()">Log In</button>
   </div>
 
   <!-- LOGGED IN -->
-  <div *ngIf="this.dataService.cur_user" id="logged_in-view">
+  <div *ngIf="dataService.cur_user" id="logged_in-view">
     <div id="top_info">
       <img [src]="pic_loc" id="avatar_profpic">
       <br>
-      <h3>{{this.dataService.cur_user.name}} <ion-icon name="ios-bulb"></ion-icon></h3>
+      <h3>{{this.dataService.cur_user.name}} <ion-icon name="ios-bulb" *ngIf="this.dataService.cur_user.role === 0"></ion-icon></h3>
       <br>
       <span class="subheading">Co-chair &amp; Sponsorship Lead</span>
       <br>
-      <span id="status">currently: {{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span>
+      <span id="status">currently: {{dataService.userGetStatus()}}</span>
     </div>
     <div id="bottom_stats">
       <div class="three-table">

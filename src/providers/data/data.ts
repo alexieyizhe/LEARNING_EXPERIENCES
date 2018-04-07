@@ -54,94 +54,78 @@ export class DataProvider {
     {name: "Breakfast", type: "meal", location: "STC Basement", time: "8:45", duration: 120, spots: 400},
     {name: "Brunch", type: "meal", location: "STC Basement", time: "10:30", duration: 120, spots: 400}
   ];
-  /*
-  activities = [
-    {name: "Therapy Dogs", location: "STC Concourse", time: "15:30", duration: 60, spots: 30},
-    {name: "Minute To Win It!", location: "STC 1035", time: "15:30", duration: 60, spots: 30},
-    {name: "Meditation", location: "QNC 1507", time: "19:30", duration: 60, spots: 30},
-    {name: "Photo Booth", location: "STC Basement", time: "17:30", duration: 60, spots: 30},
-    {name: "Networking Fair", location: "STC 1012", time: "9:15", duration: 60, spots: 30},
-    {name: "Hackenger Hunt", location: "Various Locations", time: "18:30", duration: 60, spots: 30}
-  ];
-  meals = [
-    {name: "Shawarma Plus", location: "STC Basement", time: "12:30", duration: 120, spots: 400},
-    {name: "Aunty's Kitchen", location: "STC Basement", time: "19:30", duration: 120, spots: 400},
-    {name: "The Grill", location: "STC Basement", time: "19:30", duration: 120, spots: 400},
-    {name: "Vincenzo's", location: "STC Basement", time: "13:30", duration: 120, spots: 400},
-    {name: "Breakfast", location: "STC Basement", time: "8:45", duration: 120, spots: 400},
-    {name: "Brunch", location: "STC Basement", time: "10:30", duration: 120, spots: 400}
-  ]; */
 
   actions = [
     // defaults
-    {action: "organizing Equithon!", need_secondary: null, available_to: [true, false, false, false, false] },
-    {action: "able to answer questions!", need_secondary: null, available_to: [true, true, true, false, false] },
-    {action: "volunteering!", need_secondary: null, available_to: [true, false, false, true, false] },
-    {action: "working on my project!", need_secondary: null, available_to: [false, false, false, false, true] },
+    {action: "organizing Equithon!", need_secondary: false, available_to: [true, false, false, false, false] },
+    {action: "able to answer questions!", need_secondary: false, available_to: [true, true, true, false, false] },
+    {action: "volunteering!", need_secondary: false, available_to: [true, false, false, true, false] },
+    {action: "working on my project!", need_secondary: false, available_to: [false, false, false, false, true] },
     
     // non-specific statuses
-    {action: "just hanging out!", need_secondary: null, available_to: [true, true, true, true, true] },
-    {action: "taking a much needed break...zzz...", need_secondary: null, available_to: [true, true, true, true, true] },
-    {action: "eating some tasty food!", need_secondary: null, available_to: [true, true, true, true, true] },
-    {action: "dealing with a problem :/", need_secondary: null, available_to: [true, true, false, false, false] },
+    {action: "just hanging out!", need_secondary: false, available_to: [true, true, true, true, true] },
+    {action: "taking a much needed break...zzz...", need_secondary: false, available_to: [true, true, true, true, true] },
+    {action: "eating some tasty food!", need_secondary: false, available_to: [true, true, true, true, true] },
+    {action: "dealing with a problem :/", need_secondary: false, available_to: [true, true, false, false, false] },
     
     // custom specific statuses
-    {action: "helping out at ", need_secondary: "event", available_to: [true, true, true, true, false] },
-    {action: "chillin' at ", need_secondary: "event", available_to: [true, true, true, true, true] },
-    {action: "answering questions about ", need_secondary: "input", available_to: [true, true, true, false, false] },
+    {action: "helping out at ", need_secondary: true, available_to: [true, true, true, true, false] },
+    {action: "chillin' at ", need_secondary: true, available_to: [true, true, true, true, true] },
   ];
 
   // -------------- SEED DATA --------------------------------
   users = [
-    { id: 1, name: "Alex", avatar: "profpic_alex.jpg", 
+    { id: 1, name: "Alex", avatar: "../../assets/imgs/user_profile_pics/profpic_alex.jpg", 
       email: "alex@equithon.org", pass: "alextest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [1, 3, 4], 
-      at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[3], amt: 3 } },
+      role: this.ORGANIZER, status: {action: 8, secondary: this.events[3] }, favs: [1, 3, 4], 
+      at_evnts: [], scan_info: { quick_evnt: this.events[3], amt: 3 } },
 
-    { id: 2, name: "Meagan", avatar: "profpic_meagan.jpg", 
+    { id: 2, name: "Meagan", avatar: "../../assets/imgs/user_profile_pics/profpic_meagan.jpg", 
       email: "meagan@equithon.org", pass: "meagantest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [],
-      at_evnts: [], scan_stats: { quick: true, quick_evnt: this.events[14], amt: 55 } },
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, secondary: null }, favs: [],
+      at_evnts: [], scan_info: { quick_evnt: this.events[14], amt: 55 } },
 
-    { id: 3, name: "Andres", avatar: "profpic_andres.jpg", 
+    { id: 3, name: "Andres", avatar: "../../assets/imgs/user_profile_pics/profpic_andres.jpg", 
       email: "andres@equithon.org", pass: "andrestest", 
-      role: this.ORGANIZER,  status: {action: this.ORGANIZER, at_event: null }, favs: [], 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 12 } },
+      role: this.ORGANIZER,  status: {action: this.ORGANIZER, secondary: null }, favs: [], 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 12 } },
 
-    { id: 4, name: "Falah", avatar: "profpic_falah.jpg", 
+    { id: 4, name: "Falah", avatar: "../../assets/imgs/user_profile_pics/profpic_falah.jpg", 
       email: "falah@equithon.org", pass: "falahtest", 
-      role: this.ORGANIZER, status: {action: this.ORGANIZER, at_event: null }, favs: [], 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 36 } },
+      role: this.ORGANIZER, status: {action: this.ORGANIZER, secondary: null }, favs: [], 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 0 } },
 
     { id: 5, name: "Equihacker", avatar: "", 
       email: "hackertest@equithon.org", pass: "hackertest", 
-      role: this.HACKER,  status: {action: this.VOLUNTEER, at_event: null }, favs: [], 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+      role: this.HACKER,  status: {action: this.VOLUNTEER, secondary: null }, favs: [], 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 0 } },
 
     { id: 6, name: "Equivolunteer", avatar: "", 
       email: "volunteertest@equithon.org", pass: "volunteertest", 
-      role: this.VOLUNTEER, status: {action: this.SPONSOR, at_event: null }, favs: [], 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 95 } },
+      role: this.VOLUNTEER, status: {action: this.SPONSOR, secondary: null }, favs: [], 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 95 } },
 
     { id: 7, name: "Equimentor", avatar: "", 
       email: "mentortest@equithon.org", pass: "mentortest", 
-      role: this.MENTOR, status: {action: this.MENTOR, at_event: null }, favs: [], 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+      role: this.MENTOR, status: {action: this.MENTOR, secondary: null }, favs: [], 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 0 } },
 
     { id: 8, name: "Equisponsor", avatar: "", 
       email: "sponsortest@equithon.org", pass: "sponsortest", favs: [], 
-      role: this.SPONSOR, status: {action: this.VOLUNTEER, at_event: null }, 
-      at_evnts: [], scan_stats: { quick: false, quick_evnt: null, amt: 0 } },
+      role: this.SPONSOR, status: {action: this.MENTOR, secondary: null }, 
+      at_evnts: [], scan_info: { quick_evnt: null, amt: 0 } },
 
   ];
 
-  cur_user = null;
+  cur_user: any = null;
+
+  
   constructor(public http: HttpClient) {
     for(var u = 0; u < this.users.length; u++){
       for(var e = 0; e < this.events.length; e++) this.users[u].at_evnts.push(false);
     }
 
-    this.cur_user = this.users[2];
+    //this.cur_user = this.users[2];
   }
 
   searchUsers(search_by: string = "", query_term: string = ""){
@@ -164,7 +148,7 @@ export class DataProvider {
         });
       }
     }
-    // no search filter: return all users
+    // no search term or filter by: return all users
     console.log("searching with no query");
     return this.users;
 
@@ -178,10 +162,10 @@ export class DataProvider {
       email: email,
       pass: pass,
       role: Number(role),
-      status: {action: Number(role), at_event: null}, // set status to default for the user's role
+      status: {action: Number(role), secondary: null}, // set status to default for the user's role
       favs: [],
       at_evnts: [],
-      scan_stats: { quick: false, quick_evnt: null, amt: 0 },
+      scan_info: { quick_evnt: null, amt: 0 },
     }
     for(var e = 0; e < this.events.length; e++) new_user.at_evnts.push(false);
 
@@ -189,7 +173,7 @@ export class DataProvider {
 
   }
 
-  updateUser(some_user_id, some_user){
+  userUpdate(some_user_id, some_user){
     let user_indx = -1;
     for(var i = 0; i < this.users.length; i++){
       if(this.users[i].id === some_user_id){
@@ -200,15 +184,27 @@ export class DataProvider {
     if(user_indx > -1) this.users[user_indx] = some_user;
   }
 
-  changeStatus(new_action, new_sec_event){
-    this.cur_user.status.action = new_action;
-    this.cur_user.status.at_event = new_sec_event;
-    if(this.cur_user.role === this.ORGANIZER || this.cur_user.role === this.VOLUNTEER){
-      // ask user if they want to turn on quick checkin using a modal
+  userGetStatus(){
+    let cur_status = this.actions[this.cur_user.status.action].action;
+    
+    if(this.actions[this.cur_user.status.action].need_secondary && this.cur_user.status.secondary){
+      console.log("True");
+      cur_status = cur_status + " " + this.cur_user.status.secondary.name + "!";
     }
+    console.log("STATUSSSSSSSS is %s", cur_status);
+    return cur_status;
   }
 
-  getUserStat(query: string){
+  userGetProfilePic(){
+    return (this.cur_user && this.cur_user.avatar) ? this.cur_user.avatar : "../../assets/imgs/user_profile_pics/profpic_default.png";
+  }
+
+  userEnableQCI(){
+    this.cur_user.scan_stats.quick_evnt = this.events[this.cur_user.status.secondary];
+    console.log("enabled quick checkin at %d: %s", this.cur_user.status.secondary, this.events[this.cur_user.status.secondary].name);
+  }
+
+  userGetAttended(query: string){
     let ret_lst = [];
     console.log("getting stats query %s", query);
     if(["workshop", "activity", "meal"].indexOf(query) > -1){
@@ -224,7 +220,7 @@ export class DataProvider {
     return ret_lst;
   }
 
-  logIn(login_email, login_password){
+  userLogIn(login_email, login_password){
     let user_indx = -1;
     for(var i = 0; i < this.users.length; i++){
       if(this.users[i].email === login_email){
@@ -242,59 +238,8 @@ export class DataProvider {
     return false;
   }
 
-  logOut(){
+  userLogOut(){
     this.cur_user = null;
   }
-
-  /*
-  optQuickCheckin(opt_in){ // cur_user needs to be non-null
-    if(opt_in){
-
-      for(let w = 0; w < this.workshops.length; w++){
-        if(this.workshops[w].name.toLowerCase() === this.cur_user.acting_on){
-          this.cu_is_quick = true;
-          this.cu_quick_checkin = {
-            type: 'workshop',
-            name: this.workshops[w].name,
-            type_indx: w
-          };
-          console.log("setting %s as quick checkin", this.workshops[w].name);
-          return this.cu_quick_checkin;
-        }
-      }
-
-      for(let a = 0; a < this.activities.length; a++){
-        if(this.activities[a].name.toLowerCase() === this.cur_user.acting_on){
-          this.cu_is_quick = true;
-          this.cu_quick_checkin = {
-            type: 'activity',
-            name: this.activities[a].name,
-            type_indx: a
-          };
-          console.log("setting %s as quick checkin", this.activities[a].name);
-          return this.cu_quick_checkin;
-        }
-      }
-
-      for(let m = 0; m < this.meals.length; m++){
-        if(this.meals[m].name.toLowerCase() === this.cur_user.acting_on){
-          this.cu_is_quick = true;
-          this.cu_quick_checkin = {
-            type: 'meal',
-            name: this.meals[m].name,
-            type_indx: m
-          };
-          console.log("setting %s as quick checkin", this.meals[m].name);
-          return this.cu_quick_checkin;
-        }
-      }
-
-    }
-    console.log("did not find one matching current");
-    this.cu_is_quick = false;
-    this.cu_quick_checkin = null;
-
-    return null;
-  }*/
   
 }

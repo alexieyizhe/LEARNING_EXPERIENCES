@@ -2,6 +2,7 @@ import { ModalController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserPage } from '../../pages/detail-pages/user/user';
+import { EventPage } from '../../pages/detail-pages/event/event';
 import { AdminPage } from '../../pages/detail-pages/admin/admin';
 import { ContactPage } from '../../pages/detail-pages/contact/contact';
 import { ErrorPage } from '../../pages/detail-pages/error/error';
@@ -13,30 +14,27 @@ export class DetailProvider {
   user: any;
 
   constructor(public http: HttpClient, public modalCtrl: ModalController, public dataService: DataProvider) {
-    console.log('Hello DetailProvider Provider');
   }
 
   showUser(display_params){
     console.log("viewing user %s...", display_params.user.name);
+
     let userModal = this.modalCtrl.create(UserPage, {display_params}, {cssClass: "detail-modal user-modal"});
-
-    userModal.onDidDismiss((new_user) => {
-
-      if(new_user){
-        console.log("updating user!");
-        this.dataService.updateUser(new_user.id, new_user);
-      }
-
-    })
-
     userModal.present();
 
   }
+  
+  showEvent(display_params){
+    console.log("viewing event %s", display_params.event.name);
 
-  showAdmin() {
+    let eventModal = this.modalCtrl.create(EventPage, {display_params}, {cssClass: "detail-modal event-modal"})
+    eventModal.present();
+  }
+
+  showAdmin(){
     console.log('opening admin panel...')
 
-    let adminModal = this.modalCtrl.create(AdminPage, null, {cssClass: "detail-modal user-modal"});
+    let adminModal = this.modalCtrl.create(AdminPage, null, {cssClass: "detail-modal admin-modal"});
     adminModal.present();
   }
 

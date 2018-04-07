@@ -6,7 +6,7 @@
     </ion-title>
     
     <ion-buttons end>
-      <button ion-button icon-only (click)="close()">
+      <button ion-button icon-only (click)="view.dismiss()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -47,7 +47,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span></p>
+      <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.user.status.action].action}}</span></p>
     </ion-item>
     <ion-item>
       <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
@@ -66,15 +66,15 @@
       <p class="role">Role: {{user.role}}</p>
     </ion-item>
     <ion-item>
-      <ion-label>I'm currently...</ion-label>
+      <ion-label>currently...</ion-label>
       <ion-select [(ngModel)]="user.status.action">
         <ng-container *ngFor="let act of this.dataService.actions; let i=index">
           <ion-option *ngIf="act.available_to[user.role]" [value]="i">{{act.action}}</ion-option>
         </ng-container>
       </ion-select>
-    </ion-item>
-    <ion-item>
-      <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.dataService.cur_user.status.action].action}}</span></p>
+      <ion-select *ngIf="this.dataService.actions[user.status.action].need_secondary" [(ngModel)]="user.status.secondary" (ngModelChange)="optQuickCI()">
+        <ion-option *ngFor="let evnt of this.dataService.events; let i=index" [value]="i">{{evnt.name}}</ion-option>
+      </ion-select>
     </ion-item>
     <span id="change_status_view">
       <ion-item>

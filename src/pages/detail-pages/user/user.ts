@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, AlertController } from 'ionic-angular';
 import { DataProvider } from '../../../providers/data/data';
 import 'rxjs/add/operator/debounceTime';
 
@@ -14,10 +14,9 @@ export class UserPage {
   readonly DISPLAY_SUDOEDIT = 2;
   readonly DISPLAY_EDIT = 3;
   readonly DISPLAY_CHECKIN = 4;
-  readonly DISPLAY_QUICKCI = 5;
   
-  saveCtrl: FormControl;
-  user;
+  saveCtrl: FormControl = new FormControl();
+  user: any;
   workshops_at: number;
   activities_at: number;
   meals_at: number;
@@ -25,12 +24,9 @@ export class UserPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public view: ViewController, public toastCtrl: ToastController,
+    public view: ViewController, public toastCtrl: ToastController, public alertCtrl: AlertController,
     public dataService: DataProvider) {
-    this.saveCtrl = new FormControl();
-    console.log("what")
-    console.log("%s", this.navParams.get("display_params").user.name);
-    console.log("%s", this.navParams.get("display_params").display_type);
+    console.log("displaying user %s with display type %s", this.navParams.get("display_params").user.name, this.navParams.get("display_params").display_type);
     this.user_display_type = Number(navParams.get("display_params").display_type);
     this.user = this.navParams.get("display_params").user;
     this.workshops_at = (this.user.at_evnts.filter(evnt => evnt.type === "workshop")).length;
@@ -51,6 +47,29 @@ export class UserPage {
     console.log("editing status...");
   }
 
+  optQuickCI(){
+    let quickci_alert = this.alertCtrl.create({
+      title: 'Would you like to enable Quick Check-In?',
+      buttons: [
+        {
+          text: 'Nope',
+          role: 'cancel',
+          handler: () => {
+            console.log('no quickcheckin');
+          }
+        },
+        {
+          text: 'Yes!',
+          handler: () => {
+            console.log('enabled quick checkin');
+            this.dataService.userEnableQCI();
+          }
+        }
+      ]
+    });
+    quickci_alert.present();
+  }
+
   alertSave(){
     let save_toast = this.toastCtrl.create({
       message: "Your changes have been automatically saved!",
@@ -62,10 +81,6 @@ export class UserPage {
     });
 
     save_toast.present();
-  }
-
-  close(){
-    this.view.dismiss(this.user);
   }
 
 }

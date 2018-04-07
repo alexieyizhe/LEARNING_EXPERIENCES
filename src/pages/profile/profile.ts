@@ -13,10 +13,9 @@ export class ProfilePage {
   login_pass: string;
 
   pic_loc: string = "../../assets/imgs/user_profile_pics/profpic_default.png";
-  attended: number = this.dataService.cur_user ? this.dataService.getUserStat("workshop").length : 0;
-  participated: number = this.dataService.cur_user ? this.dataService.getUserStat("activity").length : 0;
-  eaten: number = this.dataService.cur_user ? this.dataService.getUserStat("meal").length : 0;
-
+  attended: number = this.dataService.cur_user ? this.dataService.userGetAttended("workshop").length : 0;
+  participated: number = this.dataService.cur_user ? this.dataService.userGetAttended("activity").length : 0;
+  eaten: number = this.dataService.cur_user ? this.dataService.userGetAttended("meal").length : 0;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, 
               public loadingCtrl: LoadingController, public toastCtrl: ToastController, 
@@ -30,8 +29,8 @@ export class ProfilePage {
 
   userLogIn(){
     console.log(`attempting to log in with
-    email: %s
-    pass: %s`, this.login_email, this.login_pass);
+                 email: %s
+                 pass: %s`, this.login_email, this.login_pass);
 
     let loading = this.loadingCtrl.create(
       {
@@ -42,7 +41,7 @@ export class ProfilePage {
     
     loading.onDidDismiss(() => {
       console.log("loading dismissed!")
-      let login_success = this.dataService.logIn(this.login_email, this.login_pass);
+      let login_success = this.dataService.userLogIn(this.login_email, this.login_pass);
       let login_message = "Invalid email or password!";
       if(login_success){
         login_message = "Successfully logged in!";
@@ -89,7 +88,7 @@ export class ProfilePage {
           text: 'Log Out',
           handler: () => {
             console.log('logged out user');
-            this.dataService.logOut();
+            this.dataService.userLogOut();
             this.attended = 0;
             this.participated = 0;
             this.eaten = 0;

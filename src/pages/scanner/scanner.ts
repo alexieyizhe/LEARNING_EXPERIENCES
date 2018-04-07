@@ -31,11 +31,17 @@ export class ScannerPage {
         if (status.authorized) {
           // camera permission was granted
           // start scanning
-          let scanner = this.qrScanner.scan().subscribe((text: string) => {
-            console.log('Scanned something', text);
+          let scanner = this.qrScanner.scan().subscribe((contents: string) => {
+            if(this.dataService.cur_user) this.dataService.cur_user.scan_stats.scanned++; // updates scanned stats of current user
             this.qrScanner.hide(); // hide camera preview
             scanner.unsubscribe(); // stop scanning
             (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
+            let matching_id_users = this.dataService.searchUsers("id", contents);
+            if(matching_id_users.length === 1){
+              this.detailService.showUser({user: matching_id_users[0], display_type: 4});
+            } else {
+              this.detailService.showError();
+            }
           });
           console.log("scanner should open now!");
           // show camera preview
@@ -59,31 +65,4 @@ export class ScannerPage {
       })
       .catch((e: any) => console.log('Error is', e));
   }
-  
-  viewUser(){
-    
-    console.log("showing user with id %d", this.query_user_id);
-
-    let loading = this.loadingCtrl.create(
-      {
-        spinner: 'bubbles',
-        duration: 500
-      }
-    );
-    
-    loading.onDidDismiss(() => {
-      console.log("loading dismissed!")
-      let users = this.dataService.searchUsers("id", String(this.query_user_id));
-      if(users.length === 1){
-        this.user = users[0];
-        this.detailService.showUser({user:this.user, display_type:3});
-      } else {
-        this.detailService.showError();
-      }
-    });
-
-    loading.present();
-    
-  }
-
 }

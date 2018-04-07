@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController } from 'ionic-angular';
-import { DetailProvider } from './../../providers/detail/detail';
-import { DataProvider } from './../../providers/data/data';
+import { DetailProvider } from '../../../providers/detail/detail';
+import { DataProvider } from '../../../providers/data/data';
 
 @Component({
   selector: 'page-usersearch',
@@ -45,7 +45,7 @@ export class UsersearchPage {
       loading.present();
     } else {
       let logged_out_toast = this.toastCtrl.create({
-        message: "You're not logged in or you don't have access to the scanner!",
+        message: "You're not logged in or you don't have access to user search!",
         duration: 1000,
         position: "top",
         cssClass: "logged_out_toast",

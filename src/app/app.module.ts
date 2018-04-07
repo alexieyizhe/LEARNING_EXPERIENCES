@@ -8,12 +8,13 @@ import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { ScannerPage } from '../pages/scanner/scanner';
-import { UsersearchPage } from '../pages/usersearch/usersearch';
 import { DirectoryPage } from '../pages/directory/directory';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { AdminPage } from '../pages/detail-pages/admin/admin';
 import { UserPage } from '../pages/detail-pages/user/user';
+import { EventPage } from '../pages/detail-pages/event/event';
+import { AdminPage } from '../pages/detail-pages/admin/admin';
+import { UsersearchPage } from '../pages/detail-pages/usersearch/usersearch';
 import { ContactPage } from '../pages/detail-pages/contact/contact';
 import { ErrorPage } from '../pages/detail-pages/error/error';
 
@@ -30,8 +31,9 @@ import { DetailProvider } from '../providers/detail/detail';
     UsersearchPage,
     DirectoryPage,
     TabsPage,
-    AdminPage,
     UserPage,
+    EventPage,
+    AdminPage,
     ContactPage,
     ErrorPage
   ],
@@ -49,8 +51,9 @@ import { DetailProvider } from '../providers/detail/detail';
     UsersearchPage,
     DirectoryPage,
     TabsPage,
-    AdminPage,
     UserPage,
+    EventPage,
+    AdminPage,
     ContactPage,
     ErrorPage
   ],
