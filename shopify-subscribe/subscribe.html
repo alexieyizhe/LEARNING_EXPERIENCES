@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shopify</title>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/png" href="resources/images/favicon_alt.png">
+	<link rel="stylesheet" href="subscribe.css">
+	<script>
+		// verifies that a string is a valid email
+		function isvalidEmail(email_input){  //super basic email verification, obviously can be scaled up to more detailed regex validation
+			var loc_of_at = email_input.indexOf("@");
+			if(loc_of_at >= 0 && email_input.length - 1 > loc_of_at){  //checks if the @ symbol exists somewhere in the email and is not the last character
+				return true;
+			}
+			return false;
+		}
+		// reveals the error message telling the user they have entered an invalid email
+		function showInvalid(){ 
+			document.getElementById("error").removeAttribute("hidden");
+		}
+
+		// checks if an email is valid and performs the appropriate action to match
+		function validateEmail(email_input, interest_input){
+			if (isvalidEmail(email_input)){
+
+				console.log(email_input);
+				console.log(interest_input);
+				//document.getElementById("error").setAttribute("hidden"); //this would hide the error message, but it refreshes the page :/
+			} else {
+				showInvalid();
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="main">
+		<h1>Stay up to date with ecommerce trends with Shopify's newsletter</h1>
+		<div id="line1"></div>
+		<h2>Subscribe for free marketing tips</h2>
+		<form>
+			<input id="email_input" class="subscribe_field" type="email" name="email" placeholder="Email Address">
+			<input id="interest_input" class="subscribe_field" list="newsletter_options" name="pick_interest" placeholder="Interested in..."  />
+			<datalist id="newsletter_options">
+				<option value="starting an online store easily!"> <!-- placeholder options I picked from reading the Shopify website-->
+				<option value="keeping customers happy and attracting tons of new ones!">
+				<option value="getting access to powerful tools to see how your business is doing!">
+				<option value="working at an awesome company as a Front End Developer Intern!">
+				<option value="etc...">
+			</datalist>
+			<span id="error" hidden> Please enter a valid email address</span>
+			<input id="submit_but" type="submit" value="Sign up now" onclick="validateEmail(document.getElementById('email_input').value, document.getElementById('interest_input').value);return false"> <!-- returning false stops the browser from being prompted to refresh page-->
+		</form>
+		<div id="footer">
+			<a href="">Unsubscribe</a>
+		</div>
+	</div>
+</body>
+</html>
