@@ -1,0 +1,56 @@
+page-profile {
+
+}
+
+#login_error {
+    display: none;
+}
+
+#logged_in-view {
+    background-color: #6E7FF5;
+    #top_info {
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 40px;
+        margin-bottom: 40px;
+        width: 50%;
+        text-align: center;
+    }
+    
+    h3 {
+        color: white;
+        font-size: 30px;
+        display: inline;
+    }
+
+    #status {
+        color: white;
+    }
+    .three-table {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        text-align: center;
+        padding-bottom: 40px;
+        .cell-box {
+            display: table-cell;
+            width: 33%;
+            margin-left: 20px;
+            margin-right: 20px;
+            color: white;
+        }
+    }
+}
+#avatar_profpic {
+    border-radius: 50%;
+    border: solid 10px rgba(216, 216, 216, 0.9);
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.subheading {
+    color: rgb(221, 221, 221);
+}

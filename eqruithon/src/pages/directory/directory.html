@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Directory of Users
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <ion-item *ngFor="let user of this.filtered_users" (click)="viewUser(user)">{{user.name}}</ion-item>
+  </ion-list>
+  <button ion-button (click)="openAdmin()">Admin Panel</button>
+  <ion-item>
+    <ion-label>Search for a user</ion-label>
+    <ion-input [(ngModel)]="this.query_user" placeholder="by type:"></ion-input>
+    <ion-select [(ngModel)]="this.query_type">
+      <ion-option value="id">User ID</ion-option>
+      <ion-option value="name">Name</ion-option>
+      <ion-option value="role">Role</ion-option>
+      <ion-option value="location">Current Location</ion-option>
+    </ion-select>
+  </ion-item>
+  <button ion-button (click)="filterUsers()">Filter</button>
+  <ion-input [(ngModel)]="this.query_user" placeholder="Check in a user:"></ion-input>
+  <button ion-button (click)="openCheckin()">Open Check-in</button>
+</ion-content>

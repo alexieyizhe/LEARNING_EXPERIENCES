@@ -1,0 +1,17 @@
+page-scanner {
+
+}
+
+#scanner-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 5em;
+    margin: 5% 20% 0 20%;
+    overflow-wrap: break-word;
+}
+
+.line-break {
+    width: 100%;
+}

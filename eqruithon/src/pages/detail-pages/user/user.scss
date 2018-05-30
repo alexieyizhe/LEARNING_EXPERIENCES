@@ -1,0 +1,31 @@
+page-user {
+
+}
+
+.label {
+    margin-left: 15px;
+}
+
+#editable_view {
+    display: none;
+}
+
+#editable_volunteer-quick {
+    display: none;
+}
+
+#change_status_view {
+    display: none;
+}
+
+#avatar_header_img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-left: 15px;
+}
+ion-title {
+    margin-top: 3px;
+}

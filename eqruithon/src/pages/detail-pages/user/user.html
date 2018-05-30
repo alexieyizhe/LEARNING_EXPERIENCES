@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar>
+    <img src="../../assets/imgs/user_profile_pics/profpic_andres.jpg" id="avatar_header_img">
+    <ion-title>
+      {{user.name}}
+    </ion-title>
+    
+    <ion-buttons end>
+      <button ion-button icon-only (click)="view.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- VIEW -->
+  <span *ngIf="user_display_type === DISPLAY_VIEW" id="display_view">
+    <ion-item>
+      <p class="role">Role: {{user.role}}</p>
+    </ion-item>
+    
+    <ion-item>
+        <p class="status">currently: {{this.dataService.actions[user.status.action].action}}</p>
+    </ion-item>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
+  </span>
+
+  <!-- ORGANIZER EDIT -->
+  <span *ngIf="user_display_type === DISPLAY_SUDOEDIT" id="sudoedit_view">
+    <ion-item> 
+      <ion-input placeholder="User Name" [(ngModel)]="user.name" [formControl]="saveCtrl"></ion-input> 
+    </ion-item> 
+    <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select [(ngModel)]="user.role" name="user.role">
+        <ion-option value="organizer">Organizer</ion-option>
+        <ion-option value="volunteer">Volunteer</ion-option>
+        <ion-option value="mentor">Mentor</ion-option>
+        <ion-option value="sponsor">Sponsor</ion-option>
+        <ion-option value="hacker">Hacker</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <p class="status" (click)="editStatus()">currently: <span class="editable_status">{{this.dataService.actions[this.user.status.action].action}}</span></p>
+    </ion-item>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
+  </span>
+
+  <!-- EDIT -->
+  <span *ngIf="user_display_type === DISPLAY_EDIT" id="edit_view">
+    <ion-item> 
+      <ion-input placeholder="User Name" [(ngModel)]="user.name" [formControl]="saveCtrl"></ion-input> 
+    </ion-item> 
+    <ion-item>
+      <p class="role">Role: {{user.role}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>currently...</ion-label>
+      <ion-select [(ngModel)]="user.status.action">
+        <ng-container *ngFor="let act of this.dataService.actions; let i=index">
+          <ion-option *ngIf="act.available_to[user.role]" [value]="i">{{act.action}}</ion-option>
+        </ng-container>
+      </ion-select>
+      <ion-select *ngIf="this.dataService.actions[user.status.action].need_secondary" [(ngModel)]="user.status.secondary" (ngModelChange)="optQuickCI()">
+        <ion-option *ngFor="let evnt of this.dataService.events; let i=index" [value]="i">{{evnt.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <span id="change_status_view">
+      <ion-item>
+        <ion-select [(ngModel)]="user.status.action" id="change_status_select">
+          <ion-option *ngFor="let act of this.dataService.actions" value="{{act.value}}">{{act}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </span>
+    <ion-item>
+      <p class="workshop_tracker">workshops attended: {{workshops_at}}</p>
+      <p class="activity_tracker">activities participated in: {{activities_at}}</p>
+      <p class="meal_tracker">meals eaten: {{meals_at}}</p>
+      <p class="volunteer_tracker">codes scanned: {{user.scan_stats.amt}}</p>
+    </ion-item>
+  </span>
+  
+
+  <!-- CHECKIN -->
+  <span *ngIf="user_display_type === DISPLAY_CHECKIN && !this.dataService.cur_user.scan_stats.quick" id="checkin_view">
+    <ion-item> 
+      <p>Check {{user.name}} in:</p>
+    </ion-item> 
+    <ion-list>
+      <!-- for some reason iteration using ngFor cannot track indexes properly, see https://github.com/angular/angular/issues/10423#issuecomment-236808128 -->
+      <ion-item *ngFor="let ws of user.at_evnts;let i=index; trackBy: trackByIndex">
+        <ion-icon name="star"></ion-icon>
+        <ion-label>{{this.dataService.events[i].name}}</ion-label>
+        <ion-toggle [(ngModel)]="user.at_evnts[i]"></ion-toggle>
+      </ion-item>
+    </ion-list>
+  </span> 
+
+  <!-- QUICK CHECKIN -->
+  <span *ngIf="user_display_type === DISPLAY_CHECKIN && this.dataService.cur_user.scan_stats.quick" id="quickci_view">
+    <ion-label>{{this.dataService.cur_user.scan_stats.quick_evnt.name}}</ion-label>
+    <ion-toggle [(ngModel)]="user.at_evnts[this.dataService.events.indexOf(this.dataService.cur_user.scan_stats.quick_evnt)]"></ion-toggle>
+  </span>
+  
+</ion-content>
+      
