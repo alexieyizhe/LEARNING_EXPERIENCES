@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Result</title>
+	<link rel="icon" type="image/x-icon" href="logo.jpeg">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">
+	<style>
+		.popupModal {
+			width: 350px;
+			height: 200px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 50px;
+		}
+    #closeWindowBut:hover {
+      cursor: pointer;
+    }
+	</style>
+</head>
+<body>
+	<div id="outerParsedItemContainer" class="popupModal" style="position: absolute; right: 30px; top: 40px; z-index: 2147000000; display: none">
+		<div class="ui fluid card">
+			<div class="ui styled fluid accordion">
+			  <div class="title" style="background-color: rgba(1, 198, 216,0.75); color: white; position: inline; width: 350px; border-top-right-radius: 5px; border-top-left-radius: 5px">
+			    <span data-tooltip="View Image"><i class="image outline white icon"></i></span>
+          <i id="closeWindowBut" class="times white icon" style="float: right" onclick="$('#outerParsedItemContainer').detach();"></i>
+			  </div>
+			  <div class="content" style="padding: 0; margin: 0;">
+			   	<img id="itemMainImg" style="width: 100%; height: 100%; border-top-right-radius: 5px; border-top-left-radius: 5px;">
+			  </div>
+			</div>
+			<div class="content" id="mainContent">
+
+				<div class="header"><a id="itemName" href="#" target="_blank" style="color: inherit"></a></div>
+				<div class="meta" style="float: left">
+					<span id="itemBrand" class="brand"></span> <br>
+					<span class="category" data-tooltip="Online Availability"><i id="itemBuyOnline" class="credit card outline icon"></i></span>
+					<span class="category" data-tooltip="In-Store Availability"><i id="itemBuyStore" class="shopping basket icon"></i></span>
+					<div id="itemAvgReview" class="ui star rating" data-max-rating="5"></div>
+				</div>
+				<div class="meta" style="float: right; margin-top: -5px;">
+					<div class="ui large label" style="position: relative;">
+						<div id="itemPriceLower" class="floating ui red label" data-tooltip="Current Price" data-position="top left" style="left: 0px; opacity: 0.8; display: none;"></div>
+						<span id="itemPrice" data-tooltip="Original Price" data-position="bottom right"><i class="dollar icon"></i> </span>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui styled accordion"> <!-- todo: set exclusive to false -->
+				<div class="active title">
+					<i class="dropdown icon"></i>
+					Description
+				</div>
+				<div class="active content">
+					<p id="itemDesc"></p>
+				</div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Features
+				</div>
+				<div class="content" id="itemFeatures">
+				</div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Specs
+				</div>
+				<div class="content" id="itemSpecs">
+				</div>
+
+				<div class="title">
+					<i class="dropdown icon"></i>
+					Reviews
+				</div>
+				<div class="content" id="itemReviews">
+				</div>
+
+			</div>
+			<div class="extra content" style="background-color: rgba(1, 198, 216,0.75); color: white;">
+				<div id="itemCategories" class="ui breadcrumb"  data-tooltip="Breadcrumb Categories" data-position="right center">
+				</div>
+			</div>
+	</div>
+</body>
+</html>
